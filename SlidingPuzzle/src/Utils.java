@@ -14,6 +14,25 @@ public class Utils {
 		System.out.println("---------------------------------");
 	}
 
+	public static boolean isSolved(int[][] board) {
+		int last = 0;
+
+		// If 0 is not bot-right is not solved
+		if(board[SIZE-1][SIZE-1]!=0) {
+			return false;
+		} else {
+			for (int contX = 0; contX < SIZE; contX++) {
+				for (int contY = 0; contY < SIZE; contY++) {
+					if (board[contX][contY] <= last && board[contX][contY] != 0) {
+						return false;
+					}
+					last = board[contX][contY];
+				}
+			}
+			return true;
+		}
+	}
+
 	static Board moveUp(Board board) {
 
 		int x = board.getRow0();
