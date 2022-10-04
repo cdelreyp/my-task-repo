@@ -18,7 +18,7 @@ public class Utils {
 		int last=0;
 		
 		//If 0 is not bot-right is not solved
-		if(board[3][3]!=0) {
+		if(board[SIZE-1][SIZE-1]!=0) {
 			return false;
 		}
 		else {
