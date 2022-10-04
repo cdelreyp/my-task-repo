@@ -14,6 +14,15 @@ public class Board {
 		this.board = new int[SIZE][SIZE];
 		initTiles();
 		
+		for(int contX=0; contX< SIZE;contX++) {
+			for(int contY=0; contY< SIZE;contY++) {
+				if(board[contX][contY] ==0) {
+					setRow0(contX);
+					setCol0(contY);
+				}
+			}
+		}
+		
 	}
 	
 	private void initTiles() {
