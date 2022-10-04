@@ -33,7 +33,7 @@ public class Board {
 		if(position > 100) {
 			position = 100 - (position - 100);
 		}
-		Integer value = this.transitions.get(position);
+		Integer value = transitions.get(position);
 		return value == null ? position : value;  
 	}
 

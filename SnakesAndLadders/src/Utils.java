@@ -1,7 +1,7 @@
 
 public class Utils {
 	
-	public int rollDice() {
+	public static int rollDice() {
 	    return (int)(6.0 * Math.random()) + 1;
 	}
 }
