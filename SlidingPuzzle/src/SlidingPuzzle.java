@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Scanner;
 
 public class SlidingPuzzle {
 
@@ -12,40 +13,41 @@ public class SlidingPuzzle {
 		board = new Board();
 
 		Utils.printBoard(board.getBoard());
+		
+		Scanner teclado = new Scanner(System.in);
 
-		while (true) {
+		while (!Utils.isSolved(board.getBoard())) {
 
 			char move;
 
-
-			move = (char) System.in.read();
-
+            move = teclado.next().charAt(0);
 
 			switch (move) {
-			case 'w':
-				board = Utils.moveUp(board);
-				break;
-			case 's':
-				board = Utils.moveDown(board);
-				break;
-			case 'a':
-				board = Utils.moveLeft(board);
-				break;
-			case 'd':
-				board = Utils.moveRight(board);
-				break;
-			default:
-				break;
+				case 'w':
+					board = Utils.moveUp(board);
+					break;
+				case 's':
+					board = Utils.moveDown(board);
+					break;
+				case 'a':
+					board = Utils.moveLeft(board);
+					break;
+				case 'd':
+					board = Utils.moveRight(board);
+					break;
+				default:
+					break;
 			}
-				
 
 			Utils.printBoard(board.getBoard());
-				
 
-			}
+		}
+		
+		teclado.close();
 
 		
 
 	}
+	
 
 }
