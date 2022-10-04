@@ -1,41 +1,58 @@
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class Board {
 
-	private Map<Integer, Integer> transitions;
+	private static int SIZE=4;
+	
+	private int row0;
+	private int col0;
+	
+	private int board[][];
 
 	public Board() {
-		this.transitions = new HashMap<>();
-		this.transitions.put(2, 38);
-		this.transitions.put(7, 14);
-		this.transitions.put(8, 31);
-		this.transitions.put(15, 26);
-		this.transitions.put(16, 6);
-		this.transitions.put(21, 42);
-		this.transitions.put(28, 84);
-		this.transitions.put(36, 44);
-		this.transitions.put(46, 25);
-		this.transitions.put(49, 11);
-		this.transitions.put(51, 67);
-		this.transitions.put(62, 19);
-		this.transitions.put(64, 60);
-		this.transitions.put(71, 91);
-		this.transitions.put(74, 53);
-		this.transitions.put(78, 98);
-		this.transitions.put(87, 94);
-		this.transitions.put(92, 88);
-		this.transitions.put(95, 75);
-		this.transitions.put(99, 80);
+		
+		this.board = new int[SIZE][SIZE];
+		
+		for(int contX=0; contX< SIZE;contX++) {
+			for(int contY=0; contY< SIZE;contY++) {
+				board[contX][contY] = contX + contY;
+			}
+		}
 	}
 
-	public int calculatePosition(int position) {
-		if(position > 100) {
-			System.out.println("Vuelta " + position);
-			position = 100 - (position - 100);
-		}
-		Integer value = transitions.get(position);
-		return value == null ? position : value;  
+	public int getRow0() {
+		return row0;
 	}
+	
+	public void setRow0(int row0) {
+		this.row0 = row0;
+	}
+	
+	public int getCol0() {
+		return col0;
+	}
+	
+	public int[][] getBoard() {
+		return board;
+	}
+
+	public void setBoard(int[][] board) {
+		this.board = board;
+	}
+
+	public void setCol0(int col0) {
+		this.col0 = col0;
+	}
+	
+	public int getPos(int x, int y) {
+		return board[x][y];
+	}
+	
+	public void setPos(int x, int y, int value)
+	{
+		this.board[x][y] = value;
+	}
+	
+	
 
 }
