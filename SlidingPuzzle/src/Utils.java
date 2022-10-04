@@ -15,16 +15,23 @@ public class Utils {
 	}
 	
 	public static boolean isSolved(int[][] board) {
-		int last=-1;
-		for (int contX = 0; contX < SIZE; contX++) {
-			for (int contY = 0; contY < SIZE; contY++) {
-				if(board[contX][contY]<=last) {
-					return false;
-				}
-				last=board[contX][contY];
-			}
+		int last=0;
+		
+		//If 0 is not bot-right is not solved
+		if(board[3][3]!=0) {
+			return false;
 		}
-		return true;
+		else {
+			for (int contX = 0; contX < SIZE; contX++) {
+				for (int contY = 0; contY < SIZE; contY++) {
+					if(board[contX][contY]<=last && board[contX][contY]!=0) {
+						return false;
+					}
+					last=board[contX][contY];
+				}
+			}
+			return true;
+		}
 	}
 
 	static Board moveUp(Board board) {
