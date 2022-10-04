@@ -13,6 +13,19 @@ public class Utils {
 		}
 		System.out.println("---------------------------------");
 	}
+	
+	public static boolean isSolved(int[][] board) {
+		int last=-1;
+		for (int contX = 0; contX < SIZE; contX++) {
+			for (int contY = 0; contY < SIZE; contY++) {
+				if(board[contX][contY]<=last) {
+					return false;
+				}
+				last=board[contX][contY];
+			}
+		}
+		return true;
+	}
 
 	static Board moveUp(Board board) {
 
