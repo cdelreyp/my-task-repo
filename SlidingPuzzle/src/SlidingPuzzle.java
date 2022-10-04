@@ -1,4 +1,4 @@
-public class SnakesAndLadders {
+public class SlidingPuzzle {
 	
 	// Players initialization
 	private static Player player1;
