@@ -34,5 +34,4 @@ public class Board {
 	      return value == null ? square : value;  
 	 }
 
-
 }
