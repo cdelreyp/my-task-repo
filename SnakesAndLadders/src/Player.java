@@ -1,7 +1,10 @@
-
 public class Player {
 
 	private int position;
+	
+	public Player() {
+	      this.position = 0;
+	}
 
 	public int getPosition() {
 		return position;
@@ -10,5 +13,5 @@ public class Player {
 	public void setPosition(int position) {
 		this.position = position;
 	}
-
+	
 }
