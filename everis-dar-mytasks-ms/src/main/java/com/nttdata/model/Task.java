@@ -13,7 +13,7 @@ public class Task {
 
 	@Id
 	@Column(name = "id")
-	private int id;
+	private long id;
 
 	@Column(name = "status")
 	private String status;
@@ -30,11 +30,11 @@ public class Task {
 	@Column(name = "cancel_date")
 	private Timestamp cancel_date;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
