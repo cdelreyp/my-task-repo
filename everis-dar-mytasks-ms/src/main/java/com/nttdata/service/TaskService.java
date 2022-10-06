@@ -59,7 +59,7 @@ public class TaskService {
 
 		Task taskToCreate = new Task();
 		
-		taskToCreate.setId(taskRepository.count() - 1);
+		taskToCreate.setId(taskRepository.count());
 		
 		taskToCreate.setDescription(task.getDescription());
 		taskToCreate.setStatus(enumStatus.IN_PROGRESS);
@@ -75,9 +75,11 @@ public class TaskService {
 	public Task updateTask(Task task, Long id) {
 
 		Optional<Task> taskToUpdate = taskRepository.findById(id);
-
+		
+		System.out.println(task.getStatus());
 		if (taskToUpdate.isPresent()) {
 
+			
 			if (task.getDescription() != null) {
 				taskToUpdate.get().setDescription(task.getDescription());
 				taskToUpdate.get().setModified_date(new Timestamp(System.currentTimeMillis()));

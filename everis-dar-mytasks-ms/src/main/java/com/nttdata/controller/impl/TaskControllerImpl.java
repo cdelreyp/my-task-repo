@@ -84,7 +84,7 @@ public class TaskControllerImpl implements TaskController {
 	 */
 	@Override
 	public ResponseEntity<?> updateTask(long id, Task task) {
-		if (taskService.getTaskById(task.getId()) == null) {
+		if (taskService.getTaskById(id) == null) {
 			logger.info("Task with id:" + id + " not found when trying to modify");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		} else {

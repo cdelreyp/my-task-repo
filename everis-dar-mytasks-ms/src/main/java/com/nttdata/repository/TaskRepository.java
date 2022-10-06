@@ -10,5 +10,8 @@ import com.nttdata.model.Task;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long>{
+	
+	/*@Query(value = "from Tasks where status != 3")
+	List<Task> findAllActive();*/
 
 }
