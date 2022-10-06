@@ -1,4 +1,4 @@
-package com.nttdata.dto;
+package com.nttdata.service.dto;
 
 import javax.validation.constraints.Size;
 

@@ -1,4 +1,4 @@
-package com.nttdata.dto;
+package com.nttdata.service.dto;
 
 import java.sql.Timestamp;
 
