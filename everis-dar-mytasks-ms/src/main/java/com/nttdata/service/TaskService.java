@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.nttdata.model.Task;
 import com.nttdata.repository.TaskRepository;
+import com.nttdata.service.dto.TaskAddDTO;
 import com.nttdata.service.dto.TaskDTO;
+import com.nttdata.service.dto.TaskUpdateDTO;
 import com.nttdata.service.mappers.TaskMapper;
 
 import utils.enumStatus;
@@ -21,9 +23,28 @@ public class TaskService {
 
 	@Autowired
 	private TaskRepository taskRepository;
-	
+
 	@Autowired
 	private TaskMapper taskMapper;
+
+	public ArrayList<TaskDTO> getAllTasks() {
+
+		List<Task> tasks = taskRepository.findAll();
+
+		ArrayList<TaskDTO> tasksDTO = (ArrayList<TaskDTO>) taskMapper.getAllTasksMapper(tasks);
+
+		return tasksDTO;
+	}
+
+	public ArrayList<TaskDTO> getAllByStatus(enumStatus status) {
+
+		List<Task> tasks = taskRepository.findAll().stream().filter(p -> p.getStatus() == status)
+				.collect(Collectors.toList());
+
+		ArrayList<TaskDTO> tasksDTO = (ArrayList<TaskDTO>) taskMapper.getAllTasksMapper(tasks);
+
+		return tasksDTO;
+	}
 
 	public Task getTaskById(Long id) {
 
@@ -37,47 +58,28 @@ public class TaskService {
 		return null;
 	}
 
-	public ArrayList<TaskDTO> getAll() {
+	public Task addTask(TaskAddDTO task) {
 
-		List<Task> tasks = taskRepository.findAll();
+		Task taskToAdd = new Task();
 
-		ArrayList<TaskDTO> tasksDTO = (ArrayList<TaskDTO>) taskMapper.getAllTasksMapper(tasks);
+		taskToAdd.setDescription(task.getDescription());
+		taskToAdd.setStatus(enumStatus.IN_PROGRESS);
 
-		return tasksDTO;
-	}
-	
-	public ArrayList<TaskDTO> getAllByStatus(enumStatus status) {
+		taskToAdd.setEntry_date(new Timestamp(System.currentTimeMillis()));
+		taskToAdd.setModified_date(taskToAdd.getEntry_date());
 
-		List<Task> tasks = taskRepository.findAll().stream().filter(p -> p.getStatus() == status).collect(Collectors.toList());
+		taskRepository.save(taskToAdd);
 
-		ArrayList<TaskDTO> tasksDTO = (ArrayList<TaskDTO>) taskMapper.getAllTasksMapper(tasks);
-
-		return tasksDTO;
+		return taskToAdd;
 	}
 
-	public Task createTask(Task task) {
-
-		Task taskToCreate = new Task();
-		
-		taskToCreate.setDescription(task.getDescription());
-		taskToCreate.setStatus(enumStatus.IN_PROGRESS);
-
-		taskToCreate.setEntry_date(new Timestamp(System.currentTimeMillis()));
-		taskToCreate.setModified_date(taskToCreate.getEntry_date());
-
-		taskRepository.save(taskToCreate);
-
-		return taskToCreate;
-	}
-
-	public Task updateTask(Task task, Long id) {
+	public Task updateTask(TaskUpdateDTO task, Long id) {
 
 		Optional<Task> taskToUpdate = taskRepository.findById(id);
-		
+
 		System.out.println(task.getStatus());
 		if (taskToUpdate.isPresent()) {
 
-			
 			if (task.getDescription() != null) {
 				taskToUpdate.get().setDescription(task.getDescription());
 				taskToUpdate.get().setModified_date(new Timestamp(System.currentTimeMillis()));
@@ -95,7 +97,7 @@ public class TaskService {
 		return null;
 	}
 
-	public void delete(Long id) {
+	public void deleteTask(Long id) {
 
 		Optional<Task> task = taskRepository.findById(id);
 

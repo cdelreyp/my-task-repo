@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nttdata.controller.TaskController;
 import com.nttdata.model.Task;
 import com.nttdata.service.TaskService;
+import com.nttdata.service.dto.TaskAddDTO;
+import com.nttdata.service.dto.TaskUpdateDTO;
 
 import utils.enumStatus;
 
@@ -29,18 +31,18 @@ public class TaskControllerImpl implements TaskController {
 	@Override
 	public ResponseEntity<?> getAllTasks() {
 		logger.info("Getting all tasks");
-		return ResponseEntity.status(HttpStatus.OK).body(taskService.getAll());
+		return ResponseEntity.status(HttpStatus.OK).body(taskService.getAllTasks());
 	}
-	
+
 	/**
 	 * GET BY STATUS OPERATION
 	 * 
-	 * @param status path variable (status) 
+	 * @param status path variable (status)
 	 * @return all Tasks with status (JSON Array), 200 OK
 	 */
 	@Override
 	public ResponseEntity<?> getTasksByStatus(enumStatus status) {
-		logger.info("Getting all tasks with status:"+ status);
+		logger.info("Getting all tasks with status:" + status);
 		return ResponseEntity.status(HttpStatus.OK).body(taskService.getAllByStatus(status));
 	}
 
@@ -69,8 +71,8 @@ public class TaskControllerImpl implements TaskController {
 	 *         unique%)
 	 */
 	@Override
-	public ResponseEntity<?> addTask(Task task) {
-		Task taskCreated = this.taskService.createTask(task);
+	public ResponseEntity<?> addTask(TaskAddDTO task) {
+		Task taskCreated = this.taskService.addTask(task);
 		logger.info("Adding new task with id:" + taskCreated.getId());
 		return ResponseEntity.status(HttpStatus.CREATED).body(taskCreated);
 	}
@@ -83,7 +85,7 @@ public class TaskControllerImpl implements TaskController {
 	 * @return updated Task (JSON), 200 OK or 404 NOT FOUND
 	 */
 	@Override
-	public ResponseEntity<?> updateTask(long id, Task task) {
+	public ResponseEntity<?> updateTask(long id, TaskUpdateDTO task) {
 		if (taskService.getTaskById(id) == null) {
 			logger.info("Task with id:" + id + " not found when trying to modify");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -106,7 +108,7 @@ public class TaskControllerImpl implements TaskController {
 			logger.info("Task with id:" + id + " not found when trying to delete");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		} else {
-			this.taskService.delete(id);
+			this.taskService.deleteTask(id);
 			logger.info("Deleting task with id:" + id);
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 		}
