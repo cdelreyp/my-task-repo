@@ -12,13 +12,13 @@ public class TaskController {
 	
 	
 	@GetMapping("/tasks")
-	public String getTasks(){
+	public Task getTasks(){
 		
-		//Task task = new Task();
+		Task task = new Task();
 		
-		//task.setId(1);
+		task.setId(1);
 		
-		return "hola";
+		return task;
 	}
 
 }
