@@ -8,12 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.controller.TaskController;
-import com.nttdata.model.Task;
+import com.nttdata.repository.entities.Task;
 import com.nttdata.service.TaskService;
 import com.nttdata.service.dto.TaskAddDTO;
 import com.nttdata.service.dto.TaskUpdateDTO;
-
-import utils.enumStatus;
+import com.nttdata.utils.enums.enumStatus;
 
 @RestController
 public class TaskControllerImpl implements TaskController {
