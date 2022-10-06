@@ -6,7 +6,6 @@ public class SnakesAndLadders {
 	private static Board board;
 	
 	public static void main(final String[] args) {
-		System.out.println("MAIN");
 
 		player1 = new Player();
 		player2 = new Player();
@@ -22,14 +21,14 @@ public class SnakesAndLadders {
 			System.out.println("Dados2: " + dice2 );
 			
 			if (move % 2 == 1) {
-				// player 1 hace cosas
+				// Player 1:
 				player1.setPosition(board.calculatePosition(player1.getPosition() + dice1 + dice2));
 				System.out.println("Player1 - " + player1.getPosition() );
 				gameOver = (player1.getPosition() == 100);
 			}
 
 			if (move % 2 == 0) {
-				// player 2 hace cosas
+				// Player 2:
 				player2.setPosition(board.calculatePosition(player2.getPosition() + dice1 + dice2));
 				System.out.println("Player2 - " + player2.getPosition() );
 				gameOver = (player2.getPosition() == 100);
@@ -38,7 +37,8 @@ public class SnakesAndLadders {
 			if(dice1 != dice2) move++;
 
 		}
-		// Comprobar ganador
+		
+		// Comprobar ganador:
 		if(player1.getPosition() == 100) System.out.println("Player1 ha ganado" );
 		else System.out.println("Player2 ha ganado" );
 
