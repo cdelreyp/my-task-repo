@@ -88,25 +88,49 @@ public class TaskServiceTest {
 	void createTaskTest() {
 		Task task = new Task();
 		task.setDescription("Task 3");
-		// Revisar autoincremento al insertar
+
 		Task task2 = taskService.createTask(task);
 		assertNotNull(task2);
-		assertEquals(task2.getId(),(Long)1L);
+		assertEquals(task2.getId(),(Long)2L);
 		assertEquals(task2.getDescription(),"Task 3");
 	}
 	
 	
 	@Test
-	void updateTaskTest() {
+	void updateNonExistingTaskTest() {
 		assertEquals(2,2);
 	}
 	
 	@Test
-	void deleteTest() {
+	void updateDescriptionTaskTest() {
+		assertEquals(2,2);
+	}
+	
+	@Test
+	void updateStatusNonDeletedTaskTest() {
 		assertEquals(2,2);
 	}
 	
 	
+	@Test
+	void updateStatusDeletedTaskTest() {
+		assertEquals(2,2);
+	}
 	
-
+	
+	@Test
+	void deleteNonExistingTaskTest() {
+		assertEquals(2,2);
+	}
+	
+	@Test
+	void deleteTaskTest() {
+		assertEquals(2,2);
+	}
+	
+	
+	@Test
+	void deleteAlreadyDeletedTaskTest() {
+		assertEquals(2,2);
+	}
 }
