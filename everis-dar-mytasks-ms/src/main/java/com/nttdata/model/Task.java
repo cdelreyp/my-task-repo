@@ -33,6 +33,16 @@ public class Task {
 
 	@Column(name = "cancel_date")
 	private Timestamp cancel_date;
+	
+	public Task() {
+		
+	}
+
+	public Task(Long id, String description, enumStatus status) {
+		this.id = id;
+		this.description = description;
+		this.status = status;
+	}
 
 	public Long getId() {
 		return id;
