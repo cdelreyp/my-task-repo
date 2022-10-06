@@ -2,6 +2,8 @@ package com.nttdata.controller;
 
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +24,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/tasks")
-@Tag(name="Tasks", description="API Tasks")
+@Tag(name = "Tasks", description = "API Tasks")
 public class TaskController {
 
 	@Autowired
 	private TaskService taskService;
+
+	private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
 
 	/**
 	 * GET OPERATION
@@ -34,8 +38,9 @@ public class TaskController {
 	 * @return all Tasks (JSON Array), 200 OK
 	 */
 	@GetMapping(produces = "application/json")
-	@Operation(description="description", operationId="get", summary="summary")
+	@Operation(description = "description", operationId = "get", summary = "summary")
 	public ResponseEntity<ArrayList<Task>> get() {
+		logger.info("Getting all tasks");
 		return ResponseEntity.status(HttpStatus.OK).body(taskService.getAll());
 	}
 
@@ -46,10 +51,11 @@ public class TaskController {
 	 * @return inserted Task (JSON), 201 CREATED or 409 CONFLICT
 	 */
 	@PostMapping(consumes = "application/json")
-	@Operation(description="description", operationId="get", summary="summary")
+	@Operation(description = "description", operationId = "get", summary = "summary")
 	public ResponseEntity<Task> post(@RequestBody Task task) {
-			this.taskService.createTask(task);
-			return ResponseEntity.status(HttpStatus.CREATED).body(task);
+		this.taskService.createTask(task);
+		logger.info("Adding task with id:" + task.getId());
+		return ResponseEntity.status(HttpStatus.CREATED).body(task);
 	}
 
 	/**
@@ -60,12 +66,14 @@ public class TaskController {
 	 * @return updated Task (JSON), 200 OK or 404 NOT FOUND
 	 */
 	@PutMapping(value = "{id}", consumes = "application/json")
-	@Operation(description="description", operationId="get", summary="summary")
+	@Operation(description = "description", operationId = "get", summary = "summary")
 	public ResponseEntity<Task> put(@RequestBody Task task, @PathVariable("id") Long id) {
-		if (taskService.getTaskById(task.getId()) == null)
+		if (taskService.getTaskById(task.getId()) == null) {
+			logger.info("Task with id:" + task.getId() + " not found when trying to modify");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		else {
+		} else {
 			this.taskService.updateTask(task, id);
+			logger.info("Modifying task with id:" + task.getId());
 			return ResponseEntity.status(HttpStatus.OK).body(task);
 		}
 	}
@@ -77,12 +85,14 @@ public class TaskController {
 	 * @return empty response body, 204 NO CONTENT or 404 NOT FOUND
 	 */
 	@DeleteMapping("{id}")
-	@Operation(description="description", operationId="get", summary="summary")
+	@Operation(description = "description", operationId = "get", summary = "summary")
 	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-		if (taskService.getTaskById(id) == null)
+		if (taskService.getTaskById(id) == null) {
+			logger.info("Task with id:" + id + " not found when trying to delete");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		else {
+		} else {
 			this.taskService.delete(id);
+			logger.info("Geting info from task with id:" + id);
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 		}
 	}
@@ -94,12 +104,15 @@ public class TaskController {
 	 * @return Task that matches the key (JSON), 200 OK or 404 NOT FOUND
 	 */
 	@GetMapping(value = "{id}", produces = "application/json")
-	@Operation(description="description", operationId="get", summary="summary")
+	@Operation(description = "description", operationId = "get", summary = "summary")
 	public ResponseEntity<Task> getByKey(@PathVariable("id") Long id) {
-		if (taskService.getTaskById(id) == null)
+		if (taskService.getTaskById(id) == null) {
+			logger.info("Task with id:" + id + " not found when trying to obtain");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		else
+		} else {
+			logger.info("Geting info from task with id:" + id);
 			return ResponseEntity.status(HttpStatus.OK).body(taskService.getTaskById(id));
+		}
 	}
 
 }
