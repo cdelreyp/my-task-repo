@@ -138,11 +138,11 @@ public class TaskControllerTests {
 	}
 	
 	@Test
-	@Order(3)
+	@Order(5)
 	public void test05_getByStatus() {
 		this.webTestClient
 		.get()
-		.uri(ABSOLUTE_URI + "s?status=COMPLETED")
+		.uri(ABSOLUTE_URI + "sByStatus?status=COMPLETED")
 		.exchange()
 		.expectStatus().isOk()
 		.expectBodyList(Task.class)
@@ -161,7 +161,7 @@ public class TaskControllerTests {
 	}
 	
 	@Test
-	@Order(5)
+	@Order(6)
 	public void test06_delete() {
 		// DELETE - WebTestClient
 		this
@@ -179,6 +179,5 @@ public class TaskControllerTests {
 			assertNull(response.getResponseBody(), "Response body must be null");	
 		});
 	}
-	
 	
 }
