@@ -58,7 +58,7 @@ public class TaskServiceTest {
 	
 	
 	
-	@Test
+	/*@Test
 	void getTaskByIdTest() {
 		Task task = taskService.getTaskById(0L);
 		assertNotNull(task);
@@ -70,7 +70,7 @@ public class TaskServiceTest {
 	
 	@Test
 	void getAllTest() {
-		ArrayList<Task> tasks = taskService.getAll();
+		//ArrayList<Task> tasks = taskService.getAll();
 		assertEquals(tasks.size(),2);
 		
 		
@@ -132,5 +132,5 @@ public class TaskServiceTest {
 	@Test
 	void deleteAlreadyDeletedTaskTest() {
 		assertEquals(2,2);
-	}
+	}*/
 }

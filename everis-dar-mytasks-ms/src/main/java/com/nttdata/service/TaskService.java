@@ -59,8 +59,6 @@ public class TaskService {
 
 		Task taskToCreate = new Task();
 		
-		taskToCreate.setId(taskRepository.count());
-		
 		taskToCreate.setDescription(task.getDescription());
 		taskToCreate.setStatus(enumStatus.IN_PROGRESS);
 
