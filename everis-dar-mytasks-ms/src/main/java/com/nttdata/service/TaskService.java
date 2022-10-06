@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,15 @@ public class TaskService {
 	public ArrayList<TaskDTO> getAll() {
 
 		List<Task> tasks = taskRepository.findAll();
+
+		ArrayList<TaskDTO> tasksDTO = (ArrayList<TaskDTO>) taskMapper.getAllTasksMapper(tasks);
+
+		return tasksDTO;
+	}
+	
+	public ArrayList<TaskDTO> getAllByStatus(enumStatus status) {
+
+		List<Task> tasks = taskRepository.findAll().stream().filter(p -> p.getStatus() == status).collect(Collectors.toList());
 
 		ArrayList<TaskDTO> tasksDTO = (ArrayList<TaskDTO>) taskMapper.getAllTasksMapper(tasks);
 

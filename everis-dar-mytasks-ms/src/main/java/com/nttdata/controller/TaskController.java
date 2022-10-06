@@ -12,6 +12,7 @@ import com.nttdata.model.Task;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import utils.enumStatus;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Tag(name = "Tasks", description = "API Tasks")
@@ -21,6 +22,11 @@ public interface TaskController {
 	@RequestMapping(method = RequestMethod.GET, value = "/tasks", produces = "application/json")
 	@ResponseBody
 	ResponseEntity<?> getAllTasks();
+	
+	@Operation(description = "description", operationId = "getTasksByStatus", summary = "summary")
+	@RequestMapping(method = RequestMethod.GET, value = "/tasks/{status}", produces = "application/json")
+	@ResponseBody
+	ResponseEntity<?> getTasksByStatus(enumStatus status);
 
 	@Operation(description = "description", operationId = "getTask", summary = "summary")
 	@RequestMapping(method = RequestMethod.GET, value = "/task/{id}", produces = "application/json")

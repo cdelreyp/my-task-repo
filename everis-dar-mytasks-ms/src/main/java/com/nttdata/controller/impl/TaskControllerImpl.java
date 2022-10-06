@@ -11,6 +11,8 @@ import com.nttdata.controller.TaskController;
 import com.nttdata.model.Task;
 import com.nttdata.service.TaskService;
 
+import utils.enumStatus;
+
 @RestController
 public class TaskControllerImpl implements TaskController {
 
@@ -28,6 +30,18 @@ public class TaskControllerImpl implements TaskController {
 	public ResponseEntity<?> getAllTasks() {
 		logger.info("Getting all tasks");
 		return ResponseEntity.status(HttpStatus.OK).body(taskService.getAll());
+	}
+	
+	/**
+	 * GET BY STATUS OPERATION
+	 * 
+	 * @param status path variable (status) 
+	 * @return all Tasks with status (JSON Array), 200 OK
+	 */
+	@Override
+	public ResponseEntity<?> getTasksByStatus(enumStatus status) {
+		logger.info("Getting all tasks with status:"+ status);
+		return ResponseEntity.status(HttpStatus.OK).body(taskService.getAllByStatus(status));
 	}
 
 	/**
