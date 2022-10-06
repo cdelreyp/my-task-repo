@@ -69,7 +69,7 @@ public class TaskController {
 	@Operation(description = "description", operationId = "get", summary = "summary")
 	public ResponseEntity<Task> put(@RequestBody Task task, @PathVariable("id") Long id) {
 		if (taskService.getTaskById(task.getId()) == null) {
-			logger.info("Task with id:" + task.getId() + " not found when trying to modify");
+			logger.info("Task with id:" + id + " not found when trying to modify");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		} else {
 			this.taskService.updateTask(task, id);
