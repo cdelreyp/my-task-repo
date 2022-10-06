@@ -73,7 +73,7 @@ public class TaskController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		} else {
 			this.taskService.updateTask(task, id);
-			logger.info("Modifying task with id:" + task.getId());
+			logger.info("Modifying task with id:" + id);
 			return ResponseEntity.status(HttpStatus.OK).body(task);
 		}
 	}
