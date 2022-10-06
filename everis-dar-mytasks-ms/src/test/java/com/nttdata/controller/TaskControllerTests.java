@@ -115,8 +115,8 @@ public class TaskControllerTests {
 	
 	@Test
 	@Order(4)
-	public void test04_getByKey() {
-		// GETBYKEY - WebTestClient
+	public void test04_getById() {
+		// GET by id - WebTestClient
 		this
 		.webTestClient
 		.get()
@@ -139,8 +139,31 @@ public class TaskControllerTests {
 	}
 	
 	@Test
+	@Order(3)
+	public void test05_getByStatus() {
+		this.webTestClient
+		.get()
+		.uri(ABSOLUTE_URI + "s?status=COMPLETED")
+		.exchange()
+		.expectStatus().isOk()
+		.expectBodyList(Task.class)
+		.consumeWith(response -> {
+			// Testing response
+			assertNotNull(response, "Response must not be null");
+			assertEquals(response.getStatus(), HttpStatus.OK, "HTTP status code must be 200 OK");
+			// Testing response body
+			Task responseBody = response.getResponseBody().get(0);
+			assertNotNull(responseBody, "Response body must not be null");
+			assertTrue(responseBody instanceof Task, "Response body must be a Task object");
+			assertEquals(responseBody.getId(), 1L, "Task ids must be equals");
+			assertEquals(responseBody.getDescription(), "updated description", "Task descriptions must be equals");
+			assertEquals(responseBody.getStatus(), enumStatus.COMPLETED, "Task status must be equals");	
+		});
+	}
+	
+	@Test
 	@Order(5)
-	public void test05_delete() {
+	public void test06_delete() {
 		// DELETE - WebTestClient
 		this
 		.webTestClient
