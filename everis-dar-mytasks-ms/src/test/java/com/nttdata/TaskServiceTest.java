@@ -107,31 +107,19 @@ public class TaskServiceTest {
 		assertEquals(DESC_2,taskUpdated.getDescription());
 	}
 	
-	/*@Test
+	@Test
+	@Order(6)
 	void updateStatusNonDeletedTaskTest() {
-		assertEquals(2,2);
+		TaskUpdateDTO task = new TaskUpdateDTO();
+		task.setStatus(enumStatus.COMPLETED);
+		Task taskUpdated = taskService.updateTask(task, 1L);
+		assertEquals(enumStatus.COMPLETED,taskUpdated.getStatus());
 	}
 	
-	
-	@Test
-	void updateStatusDeletedTaskTest() {
-		assertEquals(2,2);
-	}
-	
-	
-	@Test
-	void deleteNonExistingTaskTest() {
-		assertEquals(2,2);
-	}
 	
 	@Test
 	void deleteTaskTest() {
 		assertEquals(2,2);
 	}
 	
-	
-	@Test
-	void deleteAlreadyDeletedTaskTest() {
-		assertEquals(2,2);
-	}*/
 }
