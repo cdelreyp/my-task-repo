@@ -49,7 +49,7 @@ public class TaskController {
     /**
      * PUT OPERATION
      * @param task request body (Task to update)
-     * @param id path variable (id of the task to update)
+     * @param id path variable (id of the Task to update)
      * @return updated Task (JSON), 200 OK or 404 NOT FOUND
      */
     @PutMapping(value = "{id}", consumes = "application/json")
@@ -64,7 +64,7 @@ public class TaskController {
 
     /**
      * DELETE OPERATION
-     * @param id path variable (id of the task to delete)
+     * @param id path variable (id of the Task to delete)
      * @return empty response body, 204 NO CONTENT or 404 NOT FOUND
      */
     @DeleteMapping("{id}")
@@ -80,7 +80,7 @@ public class TaskController {
     /**
      * GET BY KEY OPERATION
      * @param id path variable (id of the Task to retrieve)
-     * @return Task that matchs the key (JSON), 200 OK or 404 NOT FOUND 
+     * @return Task that matches the key (JSON), 200 OK or 404 NOT FOUND 
      */
     @GetMapping(value = "{id}", produces = "application/json")
     public ResponseEntity<Task> getByKey(@PathVariable("id") Long id){
