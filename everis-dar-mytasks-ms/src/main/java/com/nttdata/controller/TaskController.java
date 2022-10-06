@@ -48,12 +48,8 @@ public class TaskController {
 	@PostMapping(consumes = "application/json")
 	@Operation(description="description", operationId="get", summary="summary")
 	public ResponseEntity<Task> post(@RequestBody Task task) {
-		if (taskService.getTaskById(task.getId()) != null)
-			return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
-		else {
 			this.taskService.createTask(task);
 			return ResponseEntity.status(HttpStatus.CREATED).body(task);
-		}
 	}
 
 	/**
@@ -66,7 +62,7 @@ public class TaskController {
 	@PutMapping(value = "{id}", consumes = "application/json")
 	@Operation(description="description", operationId="get", summary="summary")
 	public ResponseEntity<Task> put(@RequestBody Task task, @PathVariable("id") Long id) {
-		if (taskService.getTaskById(task.getId()) != null)
+		if (taskService.getTaskById(task.getId()) == null)
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		else {
 			this.taskService.updateTask(task, id);
@@ -83,7 +79,7 @@ public class TaskController {
 	@DeleteMapping("{id}")
 	@Operation(description="description", operationId="get", summary="summary")
 	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-		if (taskService.getTaskById(id) != null)
+		if (taskService.getTaskById(id) == null)
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		else {
 			this.taskService.delete(id);
@@ -100,7 +96,7 @@ public class TaskController {
 	@GetMapping(value = "{id}", produces = "application/json")
 	@Operation(description="description", operationId="get", summary="summary")
 	public ResponseEntity<Task> getByKey(@PathVariable("id") Long id) {
-		if (taskService.getTaskById(id) != null)
+		if (taskService.getTaskById(id) == null)
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		else
 			return ResponseEntity.status(HttpStatus.OK).body(taskService.getTaskById(id));

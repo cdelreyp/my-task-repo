@@ -40,15 +40,14 @@ public class TaskService {
 	public Task createTask(Task task) {
 
 		Task taskToCreate = new Task();
-
-		if (task.getDescription() != null) {
-			taskToCreate.setDescription(task.getDescription());
-		}
-		if (task.getStatus() != null) {
-			taskToCreate.setStatus(task.getStatus());
-		}
-
+		
+		taskToCreate.setId(taskRepository.count());
+		
+		taskToCreate.setDescription(task.getDescription());
+		taskToCreate.setStatus(enumStatus.IN_PROGRESS);
+		
 		taskToCreate.setEntry_date(new Timestamp(System.currentTimeMillis()));
+		taskToCreate.setModified_date(taskToCreate.getEntry_date());
 
 		taskRepository.save(taskToCreate);
 
@@ -63,12 +62,12 @@ public class TaskService {
 
 			if (task.getDescription() != null) {
 				taskToUpdate.get().setDescription(task.getDescription());
+				taskToUpdate.get().setModified_date(new Timestamp(System.currentTimeMillis()));
 			}
-			if (task.getStatus() != null) {
+			if (task.getStatus() != null && !task.getStatus().equals(enumStatus.DELETED)) {
 				taskToUpdate.get().setStatus(task.getStatus());
+				taskToUpdate.get().setModified_date(new Timestamp(System.currentTimeMillis()));
 			}
-
-			taskToUpdate.get().setModified_date(new Timestamp(System.currentTimeMillis()));
 
 			taskRepository.save(taskToUpdate.get());
 
