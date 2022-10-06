@@ -2,7 +2,7 @@ package com.nttdata.service.dto;
 
 import java.sql.Timestamp;
 
-import utils.enumStatus;
+import com.nttdata.utils.enums.enumStatus;
 
 public class TaskDTO {
 

@@ -9,14 +9,13 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nttdata.model.Task;
 import com.nttdata.repository.TaskRepository;
+import com.nttdata.repository.entities.Task;
 import com.nttdata.service.dto.TaskAddDTO;
 import com.nttdata.service.dto.TaskDTO;
 import com.nttdata.service.dto.TaskUpdateDTO;
 import com.nttdata.service.mappers.TaskMapper;
-
-import utils.enumStatus;
+import com.nttdata.utils.enums.enumStatus;
 
 @Service
 public class TaskService {

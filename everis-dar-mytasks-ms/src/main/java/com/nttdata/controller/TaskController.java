@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.service.dto.TaskAddDTO;
 import com.nttdata.service.dto.TaskUpdateDTO;
+import com.nttdata.utils.enums.enumStatus;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import utils.enumStatus;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Tag(name = "Tasks", description = "API Tasks")

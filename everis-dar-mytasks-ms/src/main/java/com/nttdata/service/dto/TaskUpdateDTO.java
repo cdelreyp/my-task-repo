@@ -2,7 +2,7 @@ package com.nttdata.service.dto;
 
 import javax.validation.constraints.Size;
 
-import utils.enumStatus;
+import com.nttdata.utils.enums.enumStatus;
 
 public class TaskUpdateDTO {
 	

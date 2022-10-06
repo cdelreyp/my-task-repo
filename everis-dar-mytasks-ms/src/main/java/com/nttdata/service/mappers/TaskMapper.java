@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.nttdata.model.Task;
+import com.nttdata.repository.entities.Task;
 import com.nttdata.service.dto.TaskDTO;
 
 @Component

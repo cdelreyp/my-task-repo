@@ -1,4 +1,4 @@
-package com.nttdata.model;
+package com.nttdata.repository.entities;
 
 import java.sql.Timestamp;
 
@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-import utils.enumStatus;
+import com.nttdata.utils.enums.enumStatus;
 
 @Entity
 @Table(name="tasks")

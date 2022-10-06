@@ -17,9 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import com.nttdata.model.Task;
-
-import utils.enumStatus;
+import com.nttdata.repository.entities.Task;
+import com.nttdata.utils.enums.enumStatus;
 
 @SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(OrderAnnotation.class)
