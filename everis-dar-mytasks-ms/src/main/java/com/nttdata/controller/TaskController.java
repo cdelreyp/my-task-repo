@@ -48,14 +48,14 @@ public class TaskController {
 	 * POST OPERATION
 	 * 
 	 * @param task request body (Task to insert)
-	 * @return inserted Task (JSON), 201 CREATED or 409 CONFLICT
+	 * @return inserted Task (JSON), 201 CREATED (or 409 CONFLICT %si tenemos algun unique%)
 	 */
 	@PostMapping(consumes = "application/json")
 	@Operation(description = "description", operationId = "get", summary = "summary")
 	public ResponseEntity<Task> post(@RequestBody Task task) {
-		this.taskService.createTask(task);
-		logger.info("Adding new task");
-		return ResponseEntity.status(HttpStatus.CREATED).body(task);
+		Task taskCreated=this.taskService.createTask(task);
+		logger.info("Adding new task with id:"+ taskCreated.getId());
+		return ResponseEntity.status(HttpStatus.CREATED).body(taskCreated);
 	}
 
 	/**
@@ -72,9 +72,9 @@ public class TaskController {
 			logger.info("Task with id:" + id + " not found when trying to modify");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		} else {
-			this.taskService.updateTask(task, id);
+			Task taskModified= this.taskService.updateTask(task, id);
 			logger.info("Modifying task with id:" + id);
-			return ResponseEntity.status(HttpStatus.OK).body(task);
+			return ResponseEntity.status(HttpStatus.OK).body(taskModified);
 		}
 	}
 
