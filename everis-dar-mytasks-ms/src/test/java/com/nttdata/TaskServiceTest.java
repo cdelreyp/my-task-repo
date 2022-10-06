@@ -21,6 +21,9 @@ import org.junit.jupiter.api.TestMethodOrder;
 import com.nttdata.repository.TaskRepository;
 import com.nttdata.repository.entities.Task;
 import com.nttdata.service.TaskService;
+import com.nttdata.service.dto.TaskAddDTO;
+import com.nttdata.service.dto.TaskDTO;
+import com.nttdata.service.dto.TaskUpdateDTO;
 import com.nttdata.utils.enums.enumStatus;
 
 
