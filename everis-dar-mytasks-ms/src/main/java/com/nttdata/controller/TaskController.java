@@ -54,7 +54,7 @@ public class TaskController {
 	@Operation(description = "description", operationId = "get", summary = "summary")
 	public ResponseEntity<Task> post(@RequestBody Task task) {
 		this.taskService.createTask(task);
-		logger.info("Adding task with id:" + task.getId());
+		logger.info("Adding new task");
 		return ResponseEntity.status(HttpStatus.CREATED).body(task);
 	}
 
@@ -92,7 +92,7 @@ public class TaskController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		} else {
 			this.taskService.delete(id);
-			logger.info("Geting info from task with id:" + id);
+			logger.info("Deleting task with id:" + id);
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 		}
 	}
