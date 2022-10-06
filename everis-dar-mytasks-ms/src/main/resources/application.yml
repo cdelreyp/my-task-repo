@@ -1,0 +1,38 @@
+server:
+  port: 8080
+ 
+spring:
+  profiles:
+    active: local
+  
+# H2
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+        
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: a
+    password: a
+    
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    generate-ddl: true
+    properties:
+      hibernate:
+        ddl-auto: create
+        use-new-id-generator-mappings: false
+        form_sql: true
+        hibernate:
+          dialect: org.hibernate.dialect.H2Dialect
+
+  sql:
+    init:
+      mode: always
+      platform: h2
+      
