@@ -77,7 +77,6 @@ public class TaskService {
 
 		Optional<Task> taskToUpdate = taskRepository.findById(id);
 
-		System.out.println(task.getStatus());
 		if (taskToUpdate.isPresent()) {
 
 			if (task.getDescription() != null) {

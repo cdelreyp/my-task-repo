@@ -1,25 +1,35 @@
 package com.nttdata;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import com.nttdata.model.Task;
 import com.nttdata.repository.TaskRepository;
 import com.nttdata.service.TaskService;
+import com.nttdata.service.dto.TaskAddDTO;
+import com.nttdata.service.dto.TaskDTO;
+import com.nttdata.service.dto.TaskUpdateDTO;
 
 import utils.enumStatus;
 
 
 @SpringBootTest
+@TestMethodOrder(OrderAnnotation.class)
 public class TaskServiceTest {
 	private final static String DESC_1 = "Task 1";
 	private final static String DESC_2 = "Task 2";
@@ -34,13 +44,6 @@ public class TaskServiceTest {
 	@BeforeEach
 	void initDB() {
 		createTestTask(DESC_1);
-		createTestTask(DESC_2);
-	}
-	
-	
-	@AfterEach
-	void deleteDB() {
-		taskRepository.deleteAll();
 	}
 	
 	private void createTestTask(String description) {
@@ -58,55 +61,54 @@ public class TaskServiceTest {
 	
 	
 	
-	/*@Test
+	@Test
+	@Order(1)
 	void getTaskByIdTest() {
-		Task task = taskService.getTaskById(0L);
+		Task task = taskService.getTaskById(1L);
 		assertNotNull(task);
-		assertEquals(task.getId(),(Long)0L);
+		assertEquals(task.getId(),(Long)1L);
 		assertEquals(task.getDescription(),DESC_1);
 		
 	}
 	
 	
 	@Test
+	@Order(2)
 	void getAllTest() {
-		//ArrayList<Task> tasks = taskService.getAll();
-		assertEquals(tasks.size(),2);
-		
-		
-		assertNotNull(tasks.get(0));
-		assertEquals(tasks.get(0).getId(),(Long)0L);
-		assertEquals(tasks.get(0).getDescription(),DESC_1);
-		
-		assertNotNull(tasks.get(1));
-		assertEquals(tasks.get(1).getId(),(Long)1L);
-		assertEquals(tasks.get(1).getDescription(),DESC_2);
-		
+		ArrayList<TaskDTO> tasks = taskService.getAllTasks();
+		assertEquals(tasks.size(),1);
 	}
 	
 	@Test
+	@Order(3)
 	void createTaskTest() {
-		Task task = new Task();
-		task.setDescription("Task 3");
+		TaskAddDTO task = new TaskAddDTO();
+		task.setDescription(DESC_2);
 
-		Task task2 = taskService.createTask(task);
+		Task task2 = taskService.addTask(task);
 		assertNotNull(task2);
 		assertEquals(task2.getId(),(Long)2L);
-		assertEquals(task2.getDescription(),"Task 3");
+		assertEquals(task2.getDescription(),DESC_2);
+		assertEquals(task2.getStatus(),enumStatus.IN_PROGRESS);
 	}
 	
 	
 	@Test
+	@Order(4)
 	void updateNonExistingTaskTest() {
-		assertEquals(2,2);
+		assertNull(taskService.updateTask(null, -1L));
 	}
 	
 	@Test
+	@Order(5)
 	void updateDescriptionTaskTest() {
-		assertEquals(2,2);
+		TaskUpdateDTO task = new TaskUpdateDTO();
+		task.setDescription(DESC_2);
+		Task taskUpdated = taskService.updateTask(task, 1L);
+		assertEquals(DESC_2,taskUpdated.getDescription());
 	}
 	
-	@Test
+	/*@Test
 	void updateStatusNonDeletedTaskTest() {
 		assertEquals(2,2);
 	}
