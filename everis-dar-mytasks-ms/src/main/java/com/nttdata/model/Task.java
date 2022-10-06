@@ -4,23 +4,16 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
-import lombok.Data;
-
 @Entity
 @Table(name="tasks")
-@Data
 public class Task {
 
 	@Id
 	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long id;
+	private long id;
 
 	@Column(name = "status")
 	private String status;
