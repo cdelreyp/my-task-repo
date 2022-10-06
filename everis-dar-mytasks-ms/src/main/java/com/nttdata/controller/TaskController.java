@@ -64,7 +64,7 @@ public class TaskController {
 
     /**
      * DELETE OPERATION
-     * @param userId path variable (userId of the profile to delete)
+     * @param id path variable (id of the task to delete)
      * @return empty response body, 204 NO CONTENT or 404 NOT FOUND
      */
     @DeleteMapping("{id}")
@@ -79,11 +79,11 @@ public class TaskController {
 
     /**
      * GET BY KEY OPERATION
-     * @param id path variable (userId of the profile to retrieved)
-     * @return Profile that matchs the key (JSON), 200 OK or 404 NOT FOUND 
+     * @param id path variable (id of the Task to retrieve)
+     * @return Task that matchs the key (JSON), 200 OK or 404 NOT FOUND 
      */
-    @GetMapping(value = "{userId}", produces = "application/json")
-    public ResponseEntity<Task> getByKey(@PathVariable("userId") Long id){
+    @GetMapping(value = "{id}", produces = "application/json")
+    public ResponseEntity<Task> getByKey(@PathVariable("id") Long id){
         if(!taskService.getByKey(id).isPresent())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);    
         else 
