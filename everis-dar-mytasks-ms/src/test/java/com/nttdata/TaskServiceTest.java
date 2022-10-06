@@ -118,8 +118,17 @@ public class TaskServiceTest {
 	
 	
 	@Test
-	void deleteTaskTest() {
-		assertEquals(2,2);
+    @Order(7)
+    void deleteTaskTest() {
+        Task task = taskService.getTaskById(1L);
+        assertNotNull(task);
+        assertEquals(task.getStatus(),enumStatus.COMPLETED);
+        
+        
+        taskService.deleteTask(1L);
+        task = taskService.getTaskById(1L);
+        assertNotNull(task);
+        assertEquals(task.getStatus(),enumStatus.DELETED);
 	}
 	
 }

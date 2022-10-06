@@ -76,13 +76,13 @@ public class TaskService {
 
 		Optional<Task> taskToUpdate = taskRepository.findById(id);
 
-		if (taskToUpdate.isPresent()) {
+		if (taskToUpdate.isPresent() &&  !taskToUpdate.get().getStatus().equals(enumStatus.DELETED)) {
 
 			if (task.getDescription() != null) {
 				taskToUpdate.get().setDescription(task.getDescription());
 				taskToUpdate.get().setModified_date(new Timestamp(System.currentTimeMillis()));
 			}
-			if (task.getStatus() != null && !task.getStatus().equals(enumStatus.DELETED)) {
+			if (task.getStatus() != null) {
 				taskToUpdate.get().setStatus(task.getStatus());
 				taskToUpdate.get().setModified_date(new Timestamp(System.currentTimeMillis()));
 			}
