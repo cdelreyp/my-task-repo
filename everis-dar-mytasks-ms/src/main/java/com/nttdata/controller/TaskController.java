@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,9 +28,9 @@ public interface TaskController {
 	ResponseEntity<?> getAllTasks();
 
 	@Operation(description = "description", operationId = "getTasksByStatus", summary = "summary")
-	@RequestMapping(method = RequestMethod.GET, value = "/tasks/{status}", produces = "application/json")
+	@RequestMapping(method = RequestMethod.GET, value = "/tasksByStatus", produces = "application/json")
 	@ResponseBody
-	ResponseEntity<?> getTasksByStatus(enumStatus status);
+	ResponseEntity<?> getTasksByStatus(@RequestParam(value = "status", required = true) enumStatus status);
 
 	@Operation(description = "description", operationId = "getTask", summary = "summary")
 	@RequestMapping(method = RequestMethod.GET, value = "/task/{id}", produces = "application/json")
