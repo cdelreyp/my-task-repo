@@ -29,7 +29,7 @@ public class TaskControllerTests {
 	private WebTestClient webTestClient;
 	
 	private final static String BASE_URL = "localhost:8080";
-	private final static String ABSOLUTE_URI = BASE_URL + "/tasks";
+	private final static String ABSOLUTE_URI = BASE_URL + "/task";
 	
 	@BeforeEach
 	public void init() {
@@ -80,7 +80,7 @@ public class TaskControllerTests {
 		.consumeWith(response -> {
 			// Testing response
 			assertNotNull(response, "Response must not be null");
-			assertEquals(response.getStatus(), HttpStatus.CREATED, "HTTP status code must be 201 CREATED");
+			assertEquals(response.getStatus(), HttpStatus.OK, "HTTP status code must be 200 OK");
 			// Testing response body
 			assertNotNull(response.getResponseBody(), "Response body must not be null");
 			assertTrue(response.getResponseBody() instanceof Task, "Response body must be a Task object");
@@ -95,14 +95,14 @@ public class TaskControllerTests {
 	public void test03_get() {
 		this.webTestClient
 		.get()
-		.uri(ABSOLUTE_URI)
+		.uri(ABSOLUTE_URI + "s")
 		.exchange()
 		.expectStatus().isOk()
 		.expectBodyList(Task.class)
 		.consumeWith(response -> {
 			// Testing response
 			assertNotNull(response, "Response must not be null");
-			assertEquals(response.getStatus(), HttpStatus.CREATED, "HTTP status code must be 201 CREATED");
+			assertEquals(response.getStatus(), HttpStatus.OK, "HTTP status code must be 200 OK");
 			// Testing response body
 			Task responseBody = response.getResponseBody().get(0);
 			assertNotNull(responseBody, "Response body must not be null");
