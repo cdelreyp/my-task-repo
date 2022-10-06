@@ -6,6 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import utils.enumStatus;
 
 @Entity
 @Table(name="tasks")
@@ -16,9 +19,10 @@ public class Task {
 	private long id;
 
 	@Column(name = "status")
-	private String status;
+	private enumStatus status;
 
 	@Column(name = "description")
+	@Size(max=256)
 	private String description;
 
 	@Column(name = "entry_date")
@@ -38,11 +42,11 @@ public class Task {
 		this.id = id;
 	}
 
-	public String getStatus() {
+	public enumStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(enumStatus status) {
 		this.status = status;
 	}
 

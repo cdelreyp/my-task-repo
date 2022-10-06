@@ -1,38 +1,24 @@
 package com.nttdata;
 
-import java.sql.Timestamp;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-import com.nttdata.model.Task;
-import com.nttdata.repository.TaskRepository;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
 
 @SpringBootApplication
 @EnableConfigurationProperties
+@OpenAPIDefinition(info = @Info(title = "API - NTT DATA", version = "Versión 1.0.0", description = "DESCRIPCIÓN (editar)", contact = @Contact(name = "GRUPO C", email = "correo@emeal.nttdata.com")))
 public class EverisDarMytasksMsApplication {
 
-	@Autowired
-	private static TaskRepository taskRepository;
 	
 	public static void main(String[] args) {
 	
 		SpringApplication.run(EverisDarMytasksMsApplication.class, args);
-		
-		Task tarea1 = new Task();
-		tarea1.setDescription("desc 1");
-		tarea1.setEntry_date(new Timestamp(System.currentTimeMillis()));
-		taskRepository.save(tarea1);
-		
-		Task tarea2 = new Task();
-		tarea2.setDescription("desc 2");
-		tarea2.setEntry_date(new Timestamp(System.currentTimeMillis()));
-		taskRepository.save(tarea2);
-		
 	}
 	
 
