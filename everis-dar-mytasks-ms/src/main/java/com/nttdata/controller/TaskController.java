@@ -54,7 +54,7 @@ public class TaskController {
 	@Operation(description = "description", operationId = "get", summary = "summary")
 	public ResponseEntity<Task> post(@RequestBody Task task) {
 		this.taskService.createTask(task);
-		logger.info("Adding task with id:" + task.getId());
+		logger.info("Adding new task");
 		return ResponseEntity.status(HttpStatus.CREATED).body(task);
 	}
 
@@ -69,11 +69,11 @@ public class TaskController {
 	@Operation(description = "description", operationId = "get", summary = "summary")
 	public ResponseEntity<Task> put(@RequestBody Task task, @PathVariable("id") Long id) {
 		if (taskService.getTaskById(task.getId()) == null) {
-			logger.info("Task with id:" + task.getId() + " not found when trying to modify");
+			logger.info("Task with id:" + id + " not found when trying to modify");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		} else {
 			this.taskService.updateTask(task, id);
-			logger.info("Modifying task with id:" + task.getId());
+			logger.info("Modifying task with id:" + id);
 			return ResponseEntity.status(HttpStatus.OK).body(task);
 		}
 	}
@@ -92,7 +92,7 @@ public class TaskController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		} else {
 			this.taskService.delete(id);
-			logger.info("Geting info from task with id:" + id);
+			logger.info("Deleting task with id:" + id);
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 		}
 	}
