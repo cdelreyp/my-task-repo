@@ -39,7 +39,7 @@ public class TaskControllerTests {
 	@Order(1)
 	public void test01_post() {
 		// Initialization: Task object to insert
-		Task task = new Task(1L, "description", enumStatus.IN_PROGRESS, "creator");
+		Task task = new Task(4L, "description", enumStatus.IN_PROGRESS, "creator");
 		// POST - WebTestClient
 		this
 		.webTestClient
@@ -56,7 +56,7 @@ public class TaskControllerTests {
 			// Testing response body
 			assertNotNull(response.getResponseBody(), "Response body must not be null");
 			assertTrue(response.getResponseBody() instanceof Task, "Response body must be a Task object");
-			assertEquals(response.getResponseBody().getId(), 1L, "Task ids must be equals");
+			assertEquals(response.getResponseBody().getId(), 4L, "Task ids must be equals");
 			assertEquals(response.getResponseBody().getDescription(), "description", "Task descriptions must be equals");
 			assertEquals(response.getResponseBody().getStatus(), enumStatus.IN_PROGRESS, "Task status must be equals");	
 		});
