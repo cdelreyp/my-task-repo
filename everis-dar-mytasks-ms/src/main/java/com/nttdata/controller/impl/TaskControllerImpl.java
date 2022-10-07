@@ -36,21 +36,9 @@ public class TaskControllerImpl implements TaskController {
 	
 	@Override
 	public ResponseEntity<?> getTasks(enumStatus status, String userCreator) {
-		List<TaskDTO> taskList=taskService.getAllTasks();
+
 		logger.info("Getting all tasks");
-		if(status!=null) {
-			logger.info("Filter all tasks with status:" + status);
-			//Filter by status
-			taskList = taskList.stream().filter(p -> p.getStatus() == status)
-					.collect(Collectors.toList());
-		}
-		if(userCreator!=null) {
-			logger.info("Filter all tasks with creator:" + userCreator);
-			//Filter by userCreator
-			taskList = taskList.stream().filter(p -> p.getUserCreator().equals(userCreator))
-					.collect(Collectors.toList());
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(taskList);
+		return ResponseEntity.status(HttpStatus.OK).body(taskService.getAllTasks(status,userCreator));
 	}
 
 	/**

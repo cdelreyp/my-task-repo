@@ -13,9 +13,7 @@ import com.nttdata.utils.enums.enumStatus;
 @Service
 public interface TaskService {
 
-	ArrayList<TaskDTO> getAllTasks();
-
-	ArrayList<TaskDTO> getAllByStatus(enumStatus status);
+	ArrayList<TaskDTO> getAllTasks(enumStatus status, String userCreator);
 
 	Task getTaskById(Long id);
 

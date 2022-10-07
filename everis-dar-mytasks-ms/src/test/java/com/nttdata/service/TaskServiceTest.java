@@ -36,7 +36,7 @@ public class TaskServiceTest {
 	@Test
 	@Order(1)
 	void getAllTest() {
-		ArrayList<TaskDTO> tasks = taskService.getAllTasks();
+		ArrayList<TaskDTO> tasks = taskService.getAllTasks(null,null);
 		assertEquals(tasks.size(),3);
 	}
 	
@@ -44,22 +44,40 @@ public class TaskServiceTest {
 	@Test
 	@Order(2)
 	void getAllByStatusTest() {
-		ArrayList<TaskDTO> tasks = taskService.getAllByStatus(enumStatus.IN_PROGRESS);
+		ArrayList<TaskDTO> tasks = taskService.getAllTasks(enumStatus.IN_PROGRESS,null);
 		assertEquals(tasks.size(),2);
 		for (TaskDTO task : tasks) {
 			assertEquals(task.getStatus(),enumStatus.IN_PROGRESS);
 		}
 		
-		tasks = taskService.getAllByStatus(enumStatus.PENDING);
+		tasks = taskService.getAllTasks(enumStatus.PENDING,null);
 		assertEquals(tasks.size(),1);
 		for (TaskDTO task : tasks) {
 			assertEquals(task.getStatus(),enumStatus.PENDING);
 		}
 	}
 	
+	//** Get all tasks by creator   **//
+		@Test
+		@Order(3)
+		void getAllByUserCreatorTest() {
+			ArrayList<TaskDTO> tasks = taskService.getAllTasks(null,"USER01");
+			assertEquals(tasks.size(),2);
+			for (TaskDTO task : tasks) {
+				assertEquals(task.getUserCreator(),"USER01");
+			}
+			
+			tasks = taskService.getAllTasks(null,"USER02");
+			assertEquals(tasks.size(),1);
+			for (TaskDTO task : tasks) {
+				assertEquals(task.getUserCreator(),"USER02");
+			}
+			
+		}
+	
 	//** Get task by id   **//
 	@Test
-	@Order(3)
+	@Order(4)
 	void getPresentTaskByIdTest() {
 		Task task = taskService.getTaskById(1L);
 		assertNotNull(task);
@@ -68,7 +86,7 @@ public class TaskServiceTest {
 	}
 	
 	@Test
-	@Order(4)
+	@Order(5)
 	void getNonPresentTaskByIdTest() {
 		Task task = taskService.getTaskById(-1L);
 		assertNull(task);
@@ -76,7 +94,7 @@ public class TaskServiceTest {
 	
 	//** add new task   **//
 	@Test
-	@Order(5)
+	@Order(6)
 	void addTaskTest() {
 		TaskAddDTO task = new TaskAddDTO();
 		task.setDescription(DESC_TASK_4);
@@ -92,7 +110,7 @@ public class TaskServiceTest {
 	//** updated task   **//
 	
 	@Test
-	@Order(6)
+	@Order(7)
 	void updateNonExistingTaskTest() {
 		assertNull(taskService.updateTask(null, -1L));
 	}

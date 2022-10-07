@@ -27,23 +27,21 @@ public class TaskServiceImpl implements TaskService {
 	@Autowired
 	private TaskMapper taskMapper;
 
-	public ArrayList<TaskDTO> getAllTasks() {
+	public ArrayList<TaskDTO> getAllTasks(enumStatus status, String userCreator) {
 
-		List<Task> tasks = taskRepository.findAll();
+		List<Task> taskList=taskRepository.findAll();
+		if(status!=null) {
+			//Filter by status
+			taskList = taskList.stream().filter(p -> p.getStatus() == status)
+					.collect(Collectors.toList());
+		}
+		if(userCreator!=null) {
+			//Filter by userCreator
+			taskList = taskList.stream().filter(p -> p.getUserCreator().equals(userCreator))
+					.collect(Collectors.toList());
+		}
 
-		ArrayList<TaskDTO> tasksDTO = (ArrayList<TaskDTO>) taskMapper.getAllTasksMapper(tasks);
-
-		return tasksDTO;
-	}
-
-	public ArrayList<TaskDTO> getAllByStatus(enumStatus status) {
-
-		List<Task> tasks = taskRepository.findAll().stream().filter(p -> p.getStatus() == status)
-				.collect(Collectors.toList());
-
-		ArrayList<TaskDTO> tasksDTO = (ArrayList<TaskDTO>) taskMapper.getAllTasksMapper(tasks);
-
-		return tasksDTO;
+		return (ArrayList<TaskDTO>) taskMapper.getAllTasksMapper(taskList);
 	}
 
 	public Task getTaskById(Long id) {
