@@ -1,5 +1,8 @@
 package com.nttdata.controller.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import com.nttdata.controller.TaskController;
 import com.nttdata.repository.entities.Task;
 import com.nttdata.service.TaskService;
 import com.nttdata.service.dto.TaskAddDTO;
+import com.nttdata.service.dto.TaskDTO;
 import com.nttdata.service.dto.TaskUpdateDTO;
 import com.nttdata.utils.enums.enumStatus;
 
@@ -22,27 +26,31 @@ public class TaskControllerImpl implements TaskController {
 	@Autowired
 	private TaskService taskService;
 
-	/**
-	 * GET OPERATION
-	 * 
-	 * @return all Tasks (JSON Array), 200 OK
-	 */
-	@Override
-	public ResponseEntity<?> getAllTasks() {
-		logger.info("Getting all tasks");
-		return ResponseEntity.status(HttpStatus.OK).body(taskService.getAllTasks());
-	}
 
 	/**
 	 * GET BY STATUS OPERATION
 	 * 
-	 * @param status path variable (status)
+	 * @param status path variable (optional)
 	 * @return all Tasks with status (JSON Array), 200 OK
 	 */
+	
 	@Override
-	public ResponseEntity<?> getTasksByStatus(enumStatus status) {
-		logger.info("Getting all tasks with status:" + status);
-		return ResponseEntity.status(HttpStatus.OK).body(taskService.getAllByStatus(status));
+	public ResponseEntity<?> getTasks(enumStatus status, String userCreator) {
+		List<TaskDTO> taskList=taskService.getAllTasks();
+		logger.info("Getting all tasks");
+		if(status!=null) {
+			logger.info("Filter all tasks with status:" + status);
+			//Filter by status
+			taskList = taskList.stream().filter(p -> p.getStatus() == status)
+					.collect(Collectors.toList());
+		}
+		if(userCreator!=null) {
+			logger.info("Filter all tasks with creator:" + userCreator);
+			//Filter by userCreator
+			taskList = taskList.stream().filter(p -> p.getUserCreator().equals(userCreator))
+					.collect(Collectors.toList());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(taskList);
 	}
 
 	/**

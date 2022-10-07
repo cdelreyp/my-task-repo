@@ -22,15 +22,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 public interface TaskController {
 
-	@Operation(description = "description", operationId = "getAllTasks", summary = "summary")
+	/*@Operation(description = "description", operationId = "getAllTasks", summary = "summary")
 	@RequestMapping(method = RequestMethod.GET, value = "/tasks", produces = "application/json")
 	@ResponseBody
-	ResponseEntity<?> getAllTasks();
+	ResponseEntity<?> getAllTasks();*/
 
 	@Operation(description = "description", operationId = "getTasksByStatus", summary = "summary")
-	@RequestMapping(method = RequestMethod.GET, value = "/tasksByStatus", produces = "application/json")
+	@RequestMapping(method = RequestMethod.GET, value = "/tasks", produces = "application/json")
 	@ResponseBody
-	ResponseEntity<?> getTasksByStatus(@RequestParam(value = "status", required = true) enumStatus status);
+	ResponseEntity<?> getTasks(@RequestParam(value = "status", required = false) enumStatus status, @RequestParam(value = "userCreator", required = false) String userCreator);
 
 	@Operation(description = "description", operationId = "getTask", summary = "summary")
 	@RequestMapping(method = RequestMethod.GET, value = "/task/{id}", produces = "application/json")
