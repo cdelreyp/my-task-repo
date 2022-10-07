@@ -4,6 +4,10 @@ import javax.validation.constraints.Size;
 
 import com.nttdata.utils.enums.enumStatus;
 
+/**
+ * Class that models the Task object when updating
+ * Only status and description are required
+ */
 public class TaskUpdateDTO {
 	
 	private enumStatus status;

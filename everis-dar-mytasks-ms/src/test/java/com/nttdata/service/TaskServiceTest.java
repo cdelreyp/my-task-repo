@@ -1,4 +1,4 @@
-package com.nttdata;
+package com.nttdata.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,13 +26,12 @@ import com.nttdata.service.dto.TaskDTO;
 import com.nttdata.service.dto.TaskUpdateDTO;
 import com.nttdata.utils.enums.enumStatus;
 
-
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
 public class TaskServiceTest {
+	
 	private final static String DESC_1 = "Task 1";
 	private final static String DESC_2 = "Task 2";
-	
 	
 	@Autowired
 	private TaskRepository taskRepository;
@@ -57,9 +56,6 @@ public class TaskServiceTest {
 		taskRepository.save(taskToCreate);
 	}
 	
-	
-	
-	
 	@Test
 	@Order(1)
 	void getTaskByIdTest() {
@@ -67,9 +63,7 @@ public class TaskServiceTest {
 		assertNotNull(task);
 		assertEquals(task.getId(),(Long)1L);
 		assertEquals(task.getDescription(),DESC_1);
-		
 	}
-	
 	
 	@Test
 	@Order(2)
@@ -90,7 +84,6 @@ public class TaskServiceTest {
 		assertEquals(task2.getDescription(),DESC_2);
 		assertEquals(task2.getStatus(),enumStatus.IN_PROGRESS);
 	}
-	
 	
 	@Test
 	@Order(4)
@@ -116,14 +109,12 @@ public class TaskServiceTest {
 		assertEquals(enumStatus.COMPLETED,taskUpdated.getStatus());
 	}
 	
-	
 	@Test
     @Order(7)
     void deleteTaskTest() {
         Task task = taskService.getTaskById(1L);
         assertNotNull(task);
         assertEquals(task.getStatus(),enumStatus.COMPLETED);
-        
         
         taskService.deleteTask(1L);
         task = taskService.getTaskById(1L);
