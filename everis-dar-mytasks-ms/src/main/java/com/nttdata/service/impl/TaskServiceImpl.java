@@ -29,14 +29,18 @@ public class TaskServiceImpl implements TaskService {
 
 	public ArrayList<TaskDTO> getAllTasks(enumStatus status, String userCreator) {
 
-		List<Task> taskList=taskRepository.findAll();
-		if(status!=null) {
-			//Filter by status
-			taskList = taskList.stream().filter(p -> p.getStatus() == status)
-					.collect(Collectors.toList());
+		// Get all tasks
+		List<Task> taskList = taskRepository.findAll();
+
+		// If param. status is not null, filter the list with the status
+		if (status != null) {
+			// Filter by status
+			taskList = taskList.stream().filter(p -> p.getStatus() == status).collect(Collectors.toList());
 		}
-		if(userCreator!=null) {
-			//Filter by userCreator
+
+		// If param. userCreator is not null, filter the list with the user creator
+		if (userCreator != null) {
+			// Filter by userCreator
 			taskList = taskList.stream().filter(p -> p.getUserCreator().equals(userCreator))
 					.collect(Collectors.toList());
 		}
@@ -60,13 +64,15 @@ public class TaskServiceImpl implements TaskService {
 
 		Task taskToAdd = new Task();
 
+		//Add parameters to the new task based on the info passed (param. can be null except user creator)
 		taskToAdd.setDescription(task.getDescription());
 		taskToAdd.setStatus(enumStatus.IN_PROGRESS);
 
 		taskToAdd.setUserCreator(task.getUserCreator());
 		taskToAdd.setUserAsigned(task.getUserAsigned());
-		
+
 		taskToAdd.setEntryDate(new Timestamp(System.currentTimeMillis()));
+		//We consider the entry date as the first modification, so the modified date is the same
 		taskToAdd.setModifiedDate(taskToAdd.getEntryDate());
 
 		taskRepository.save(taskToAdd);
@@ -78,8 +84,10 @@ public class TaskServiceImpl implements TaskService {
 
 		Optional<Task> taskToUpdate = taskRepository.findById(id);
 
-		if (taskToUpdate.isPresent() &&  !taskToUpdate.get().getStatus().equals(enumStatus.DELETED)) {
+		//If task is not present or is deleted it doesn't modify and it returns null
+		if (taskToUpdate.isPresent() && !taskToUpdate.get().getStatus().equals(enumStatus.DELETED)) {
 
+			//Modifies the parameters that aren't null
 			if (task.getDescription() != null) {
 				taskToUpdate.get().setDescription(task.getDescription());
 				taskToUpdate.get().setModifiedDate(new Timestamp(System.currentTimeMillis()));
@@ -93,7 +101,6 @@ public class TaskServiceImpl implements TaskService {
 				taskToUpdate.get().setModifiedDate(new Timestamp(System.currentTimeMillis()));
 			}
 
-
 			taskRepository.save(taskToUpdate.get());
 
 			return taskToUpdate.get();
@@ -106,11 +113,11 @@ public class TaskServiceImpl implements TaskService {
 
 		Optional<Task> task = taskRepository.findById(id);
 
+		//Only deletes if is not present and is not already been deleted
 		if (task.isPresent()) {
-
 			Task taskToDelete = task.get();
-
 			if (taskToDelete.getStatus() != enumStatus.DELETED) {
+				//Logical delete
 				taskToDelete.setStatus(enumStatus.DELETED);
 				taskToDelete.setCancelDate(new Timestamp(System.currentTimeMillis()));
 

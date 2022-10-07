@@ -28,15 +28,16 @@ public class TaskControllerImpl implements TaskController {
 
 
 	/**
-	 * GET BY STATUS OPERATION
+	 * GET TASKS IN DB
+	 * CAN BE FILTERED BY STATUS AND USER THAT CREATED IT
 	 * 
 	 * @param status path variable (optional)
+	 * @param userCreator path variable (optional)
 	 * @return all Tasks with status (JSON Array), 200 OK
 	 */
 	
 	@Override
 	public ResponseEntity<?> getTasks(enumStatus status, String userCreator) {
-
 		logger.info("Getting all tasks");
 		return ResponseEntity.status(HttpStatus.OK).body(taskService.getAllTasks(status,userCreator));
 	}
