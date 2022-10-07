@@ -22,32 +22,28 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 public interface TaskController {
 
-	/*@Operation(description = "description", operationId = "getAllTasks", summary = "summary")
+	@Operation(description = "Get the data of all tasks.", operationId = "getTasks", summary = "Get the data of all tasks")
 	@RequestMapping(method = RequestMethod.GET, value = "/tasks", produces = "application/json")
 	@ResponseBody
-	ResponseEntity<?> getAllTasks();*/
+	ResponseEntity<?> getTasks(@RequestParam(value = "status", required = false) enumStatus status,
+			@RequestParam(value = "userCreator", required = false) String userCreator);
 
-	@Operation(description = "description", operationId = "getTasksByStatus", summary = "summary")
-	@RequestMapping(method = RequestMethod.GET, value = "/tasks", produces = "application/json")
-	@ResponseBody
-	ResponseEntity<?> getTasks(@RequestParam(value = "status", required = false) enumStatus status, @RequestParam(value = "userCreator", required = false) String userCreator);
-
-	@Operation(description = "description", operationId = "getTask", summary = "summary")
+	@Operation(description = "Get the data of a task by id.", operationId = "getTask", summary = "Get the data of a task")
 	@RequestMapping(method = RequestMethod.GET, value = "/task/{id}", produces = "application/json")
 	@ResponseBody
 	ResponseEntity<?> getTask(@PathVariable(value = "id", required = true) long id);
 
-	@Operation(description = "description", operationId = "addTask", summary = "summary")
+	@Operation(description = "Add a task.", operationId = "addTask", summary = "Add a task")
 	@RequestMapping(method = RequestMethod.POST, value = "/task", consumes = "application/json")
 	@ResponseBody
 	ResponseEntity<?> addTask(@RequestBody TaskAddDTO task);
 
-	@Operation(description = "description", operationId = "updateTask", summary = "summary")
+	@Operation(description = "Update the data of a task by id.", operationId = "updateTask", summary = "Update the data of a task")
 	@RequestMapping(method = RequestMethod.PUT, value = "/task/{id}", consumes = "application/json")
 	@ResponseBody
 	ResponseEntity<?> updateTask(@PathVariable(value = "id", required = true) long id, @RequestBody TaskUpdateDTO task);
 
-	@Operation(description = "description", operationId = "deleteTask", summary = "summary")
+	@Operation(description = "Delete a task by id.", operationId = "deleteTask", summary = "Delete a task")
 	@RequestMapping(method = RequestMethod.DELETE, value = "/task/{id}", produces = "application/json")
 	@ResponseBody
 	ResponseEntity<?> deleteTask(@PathVariable(value = "id", required = true) long id);

@@ -13,15 +13,15 @@ import com.nttdata.service.dto.TaskDTO;
  */
 @Component
 public class TaskMapper {
-	
+
 	public List<TaskDTO> getAllTasksMapper(List<Task> tasks) {
 		// List of TaskDTO entities to be returned
 		List<TaskDTO> tasksDTO = new ArrayList<>();
-		
+
 		if (!tasks.isEmpty()) {
 			tasks.forEach(task -> {
 				TaskDTO taskDTO = new TaskDTO();
-				
+
 				// Assign the Task fields to the TaskDTO object
 				taskDTO.setId(task.getId());
 				taskDTO.setStatus(task.getStatus());
@@ -31,7 +31,7 @@ public class TaskMapper {
 				taskDTO.setEntryDate(task.getEntryDate());
 				taskDTO.setModifiedDate(task.getModifiedDate());
 				taskDTO.setCancelDate(task.getCancelDate());
-				
+
 				tasksDTO.add(taskDTO);
 			});
 		}

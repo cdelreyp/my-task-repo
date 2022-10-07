@@ -16,7 +16,7 @@ import com.nttdata.utils.enums.enumStatus;
  * Class that models the Task entity
  */
 @Entity
-@Table(name="tasks")
+@Table(name = "tasks")
 public class Task {
 
 	@Id
@@ -28,15 +28,15 @@ public class Task {
 	private enumStatus status;
 
 	@Column(name = "description")
-	@Size(max=256)
+	@Size(max = 256)
 	private String description;
-	
+
 	@Column(name = "user_creator")
-	@Size(max=16)
+	@Size(max = 16)
 	private String userCreator;
-	
+
 	@Column(name = "user_asigned")
-	@Size(max=16)
+	@Size(max = 16)
 	private String userAsigned;
 
 	@Column(name = "entry_date")
@@ -47,9 +47,9 @@ public class Task {
 
 	@Column(name = "cancel_date")
 	private Timestamp cancelDate;
-	
+
 	public Task() {
-		
+
 	}
 
 	public Task(Long id, String description, enumStatus status, String userCreator) {

@@ -14,9 +14,9 @@ public class TaskDTO {
 	private enumStatus status;
 
 	private String description;
-	
+
 	private String userCreator;
-	
+
 	private String userAsigned;
 
 	private Timestamp entryDate;

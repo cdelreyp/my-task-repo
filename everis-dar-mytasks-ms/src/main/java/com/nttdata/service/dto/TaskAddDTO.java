@@ -5,8 +5,8 @@ import javax.validation.constraints.Size;
 import com.nttdata.utils.enums.enumStatus;
 
 /**
- * Class that models the Task object when creating
- * Only status and description are required
+ * Class that models the Task object when creating Only status and description
+ * are required
  */
 public class TaskAddDTO {
 
@@ -14,10 +14,10 @@ public class TaskAddDTO {
 
 	@Size(max = 256)
 	private String description;
-	
+
 	@Size(max = 16)
 	private String userCreator;
-	
+
 	@Size(max = 16)
 	private String userAsigned;
 
@@ -36,7 +36,7 @@ public class TaskAddDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public String getUserCreator() {
 		return userCreator;
 	}
@@ -52,6 +52,5 @@ public class TaskAddDTO {
 	public void setUserAsigned(String userAsigned) {
 		this.userAsigned = userAsigned;
 	}
-
 
 }

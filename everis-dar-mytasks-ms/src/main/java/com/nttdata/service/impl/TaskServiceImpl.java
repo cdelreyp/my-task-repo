@@ -64,7 +64,8 @@ public class TaskServiceImpl implements TaskService {
 
 		Task taskToAdd = new Task();
 
-		//Add parameters to the new task based on the info passed (param. can be null except user creator)
+		// Add parameters to the new task based on the info passed (param. can be null
+		// except user creator)
 		taskToAdd.setDescription(task.getDescription());
 		taskToAdd.setStatus(enumStatus.IN_PROGRESS);
 
@@ -72,7 +73,8 @@ public class TaskServiceImpl implements TaskService {
 		taskToAdd.setUserAsigned(task.getUserAsigned());
 
 		taskToAdd.setEntryDate(new Timestamp(System.currentTimeMillis()));
-		//We consider the entry date as the first modification, so the modified date is the same
+		// We consider the entry date as the first modification, so the modified date is
+		// the same
 		taskToAdd.setModifiedDate(taskToAdd.getEntryDate());
 
 		taskRepository.save(taskToAdd);
@@ -84,10 +86,10 @@ public class TaskServiceImpl implements TaskService {
 
 		Optional<Task> taskToUpdate = taskRepository.findById(id);
 
-		//If task is not present or is deleted it doesn't modify and it returns null
+		// If task is not present or is deleted it doesn't modify and it returns null
 		if (taskToUpdate.isPresent() && !taskToUpdate.get().getStatus().equals(enumStatus.DELETED)) {
 
-			//Modifies the parameters that aren't null
+			// Modifies the parameters that aren't null
 			if (task.getDescription() != null) {
 				taskToUpdate.get().setDescription(task.getDescription());
 				taskToUpdate.get().setModifiedDate(new Timestamp(System.currentTimeMillis()));
@@ -113,11 +115,11 @@ public class TaskServiceImpl implements TaskService {
 
 		Optional<Task> task = taskRepository.findById(id);
 
-		//Only deletes if is not present and is not already been deleted
+		// Only deletes if is not present and is not already been deleted
 		if (task.isPresent()) {
 			Task taskToDelete = task.get();
 			if (taskToDelete.getStatus() != enumStatus.DELETED) {
-				//Logical delete
+				// Logical delete
 				taskToDelete.setStatus(enumStatus.DELETED);
 				taskToDelete.setCancelDate(new Timestamp(System.currentTimeMillis()));
 
