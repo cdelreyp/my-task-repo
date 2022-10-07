@@ -69,8 +69,8 @@ public class TaskDTO {
 		return entryDate;
 	}
 
-	public void setEntryDate(Timestamp entry_date) {
-		this.entryDate = entry_date;
+	public void setEntryDate(Timestamp entryDate) {
+		this.entryDate = entryDate;
 	}
 
 	public Timestamp getModifiedDate() {
