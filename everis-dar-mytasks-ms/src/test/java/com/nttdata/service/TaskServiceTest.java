@@ -30,8 +30,8 @@ import com.nttdata.utils.enums.enumStatus;
 @TestMethodOrder(OrderAnnotation.class)
 public class TaskServiceTest {
 	
-	private final static String DESC_1 = "Task 1";
-	private final static String DESC_2 = "Task 2";
+	private final static String DESC_TASK_1 = "Task 1";
+	private final static String DESC_TASK_4 = "Task 4";
 	
 	@Autowired
 	private TaskRepository taskRepository;
@@ -39,75 +39,86 @@ public class TaskServiceTest {
 	@Autowired
 	private TaskService taskService;
 	
-	@BeforeEach
-	void initDB() {
-		createTestTask(DESC_1);
-	}
-	
-	private void createTestTask(String description) {
-		Task taskToCreate = new Task();
-		
-		taskToCreate.setId(taskRepository.count());
-		
-		taskToCreate.setDescription(description);
-		taskToCreate.setStatus(enumStatus.IN_PROGRESS);
-		taskToCreate.setEntry_date(new Timestamp(System.currentTimeMillis()));
-		taskToCreate.setModified_date(taskToCreate.getEntry_date());
-		taskRepository.save(taskToCreate);
-	}
 	
 	@Test
 	@Order(1)
-	void getTaskByIdTest() {
-		Task task = taskService.getTaskById(1L);
-		assertNotNull(task);
-		assertEquals(task.getId(),(Long)1L);
-		assertEquals(task.getDescription(),DESC_1);
+	void getAllTest() {
+		ArrayList<TaskDTO> tasks = taskService.getAllTasks();
+		assertEquals(tasks.size(),3);
 	}
+	
 	
 	@Test
 	@Order(2)
-	void getAllTest() {
-		ArrayList<TaskDTO> tasks = taskService.getAllTasks();
+	void getAllByStatusTest() {
+		ArrayList<TaskDTO> tasks = taskService.getAllByStatus(enumStatus.IN_PROGRESS);
+		assertEquals(tasks.size(),2);
+		for (TaskDTO task : tasks) {
+			assertEquals(task.getStatus(),enumStatus.IN_PROGRESS);
+		}
+		
+		tasks = taskService.getAllByStatus(enumStatus.PENDING);
 		assertEquals(tasks.size(),1);
+		for (TaskDTO task : tasks) {
+			assertEquals(task.getStatus(),enumStatus.PENDING);
+		}
 	}
+	
 	
 	@Test
 	@Order(3)
-	void createTaskTest() {
-		TaskAddDTO task = new TaskAddDTO();
-		task.setDescription(DESC_2);
-
-		Task task2 = taskService.addTask(task);
-		assertNotNull(task2);
-		assertEquals(task2.getId(),(Long)2L);
-		assertEquals(task2.getDescription(),DESC_2);
-		assertEquals(task2.getStatus(),enumStatus.IN_PROGRESS);
+	void getPresentTaskByIdTest() {
+		Task task = taskService.getTaskById(1L);
+		assertNotNull(task);
+		assertEquals(task.getId(),(Long)1L);
+		assertEquals(task.getDescription(),DESC_TASK_1);
 	}
 	
 	@Test
 	@Order(4)
+	void getNonPresentTaskByIdTest() {
+		Task task = taskService.getTaskById(-1L);
+		assertNull(task);
+	}
+	
+	
+	@Test
+	@Order(5)
+	void addTaskTest() {
+		TaskAddDTO task = new TaskAddDTO();
+		task.setDescription(DESC_TASK_4);
+
+		Task task2 = taskService.addTask(task);
+		assertNotNull(task2);
+		assertEquals(task2.getId(),(Long)4L);
+		assertEquals(task2.getDescription(),DESC_TASK_4);
+		assertEquals(task2.getStatus(),enumStatus.IN_PROGRESS);
+	}
+	
+	@Test
+	@Order(6)
 	void updateNonExistingTaskTest() {
 		assertNull(taskService.updateTask(null, -1L));
 	}
 	
 	@Test
-	@Order(5)
+	@Order(7)
 	void updateDescriptionTaskTest() {
 		TaskUpdateDTO task = new TaskUpdateDTO();
-		task.setDescription(DESC_2);
+		task.setDescription(DESC_TASK_1);
 		Task taskUpdated = taskService.updateTask(task, 1L);
-		assertEquals(DESC_2,taskUpdated.getDescription());
+		assertEquals(DESC_TASK_1,taskUpdated.getDescription());
 	}
 	
 	@Test
-	@Order(6)
+	@Order(8)
 	void updateStatusNonDeletedTaskTest() {
 		TaskUpdateDTO task = new TaskUpdateDTO();
 		task.setStatus(enumStatus.COMPLETED);
 		Task taskUpdated = taskService.updateTask(task, 1L);
 		assertEquals(enumStatus.COMPLETED,taskUpdated.getStatus());
 	}
+	
 	
 	@Test
     @Order(7)
