@@ -26,9 +26,11 @@ public class TaskMapper {
 				taskDTO.setId(task.getId());
 				taskDTO.setStatus(task.getStatus());
 				taskDTO.setDescription(task.getDescription());
-				taskDTO.setEntry_date(task.getEntry_date());
-				taskDTO.setModified_date(task.getModified_date());
-				taskDTO.setCancel_date(task.getCancel_date());
+				taskDTO.setUserCreator(task.getUserCreator());
+				taskDTO.setUserAsigned(task.getUserAsigned());
+				taskDTO.setEntryDate(task.getEntryDate());
+				taskDTO.setModifiedDate(task.getModifiedDate());
+				taskDTO.setCancelDate(task.getCancelDate());
 				
 				tasksDTO.add(taskDTO);
 			});

@@ -14,6 +14,12 @@ public class TaskAddDTO {
 
 	@Size(max = 256)
 	private String description;
+	
+	@Size(max = 16)
+	private String userCreator;
+	
+	@Size(max = 16)
+	private String userAsigned;
 
 	public enumStatus getStatus() {
 		return status;
@@ -30,5 +36,22 @@ public class TaskAddDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	public String getUserCreator() {
+		return userCreator;
+	}
+
+	public void setUserCreator(String userCreator) {
+		this.userCreator = userCreator;
+	}
+
+	public String getUserAsigned() {
+		return userAsigned;
+	}
+
+	public void setUserAsigned(String userAsigned) {
+		this.userAsigned = userAsigned;
+	}
+
 
 }

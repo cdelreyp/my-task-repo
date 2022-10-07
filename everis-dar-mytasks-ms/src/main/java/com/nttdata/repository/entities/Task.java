@@ -30,24 +30,33 @@ public class Task {
 	@Column(name = "description")
 	@Size(max=256)
 	private String description;
+	
+	@Column(name = "user_creator")
+	@Size(max=16)
+	private String userCreator;
+	
+	@Column(name = "user_asigned")
+	@Size(max=16)
+	private String userAsigned;
 
 	@Column(name = "entry_date")
-	private Timestamp entry_date;
+	private Timestamp entryDate;
 
 	@Column(name = "modified_date")
-	private Timestamp modified_date;
+	private Timestamp modifiedDate;
 
 	@Column(name = "cancel_date")
-	private Timestamp cancel_date;
+	private Timestamp cancelDate;
 	
 	public Task() {
 		
 	}
 
-	public Task(Long id, String description, enumStatus status) {
+	public Task(Long id, String description, enumStatus status, String userCreator) {
 		this.id = id;
 		this.description = description;
 		this.status = status;
+		this.userCreator = userCreator;
 	}
 
 	public Long getId() {
@@ -74,28 +83,44 @@ public class Task {
 		this.description = description;
 	}
 
-	public Timestamp getEntry_date() {
-		return entry_date;
+	public String getUserCreator() {
+		return userCreator;
 	}
 
-	public void setEntry_date(Timestamp entry_date) {
-		this.entry_date = entry_date;
+	public void setUserCreator(String userCreator) {
+		this.userCreator = userCreator;
 	}
 
-	public Timestamp getModified_date() {
-		return modified_date;
+	public String getUserAsigned() {
+		return userAsigned;
 	}
 
-	public void setModified_date(Timestamp modified_date) {
-		this.modified_date = modified_date;
+	public void setUserAsigned(String userAsigned) {
+		this.userAsigned = userAsigned;
 	}
 
-	public Timestamp getCancel_date() {
-		return cancel_date;
+	public Timestamp getEntryDate() {
+		return entryDate;
 	}
 
-	public void setCancel_date(Timestamp cancel_date) {
-		this.cancel_date = cancel_date;
+	public void setEntryDate(Timestamp entryDate) {
+		this.entryDate = entryDate;
+	}
+
+	public Timestamp getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Timestamp modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public Timestamp getCancelDate() {
+		return cancelDate;
+	}
+
+	public void setCancelDate(Timestamp cancelDate) {
+		this.cancelDate = cancelDate;
 	}
 
 }

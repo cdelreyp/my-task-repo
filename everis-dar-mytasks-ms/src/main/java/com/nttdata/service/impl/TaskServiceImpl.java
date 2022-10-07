@@ -65,8 +65,11 @@ public class TaskServiceImpl implements TaskService {
 		taskToAdd.setDescription(task.getDescription());
 		taskToAdd.setStatus(enumStatus.IN_PROGRESS);
 
-		taskToAdd.setEntry_date(new Timestamp(System.currentTimeMillis()));
-		taskToAdd.setModified_date(taskToAdd.getEntry_date());
+		taskToAdd.setUserCreator(task.getUserCreator());
+		taskToAdd.setUserAsigned(task.getUserAsigned());
+		
+		taskToAdd.setEntryDate(new Timestamp(System.currentTimeMillis()));
+		taskToAdd.setModifiedDate(taskToAdd.getEntryDate());
 
 		taskRepository.save(taskToAdd);
 
@@ -77,16 +80,21 @@ public class TaskServiceImpl implements TaskService {
 
 		Optional<Task> taskToUpdate = taskRepository.findById(id);
 
-		if (taskToUpdate.isPresent() && !taskToUpdate.get().getStatus().equals(enumStatus.DELETED)) {
+		if (taskToUpdate.isPresent() &&  !taskToUpdate.get().getStatus().equals(enumStatus.DELETED)) {
 
 			if (task.getDescription() != null) {
 				taskToUpdate.get().setDescription(task.getDescription());
-				taskToUpdate.get().setModified_date(new Timestamp(System.currentTimeMillis()));
+				taskToUpdate.get().setModifiedDate(new Timestamp(System.currentTimeMillis()));
 			}
 			if (task.getStatus() != null) {
 				taskToUpdate.get().setStatus(task.getStatus());
-				taskToUpdate.get().setModified_date(new Timestamp(System.currentTimeMillis()));
+				taskToUpdate.get().setModifiedDate(new Timestamp(System.currentTimeMillis()));
 			}
+			if (task.getUserAsigned() != null) {
+				taskToUpdate.get().setUserAsigned(task.getUserAsigned());
+				taskToUpdate.get().setModifiedDate(new Timestamp(System.currentTimeMillis()));
+			}
+
 
 			taskRepository.save(taskToUpdate.get());
 
@@ -106,7 +114,7 @@ public class TaskServiceImpl implements TaskService {
 
 			if (taskToDelete.getStatus() != enumStatus.DELETED) {
 				taskToDelete.setStatus(enumStatus.DELETED);
-				taskToDelete.setCancel_date(new Timestamp(System.currentTimeMillis()));
+				taskToDelete.setCancelDate(new Timestamp(System.currentTimeMillis()));
 
 				taskRepository.save(taskToDelete);
 			}
