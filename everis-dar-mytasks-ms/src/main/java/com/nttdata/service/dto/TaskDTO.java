@@ -4,6 +4,9 @@ import java.sql.Timestamp;
 
 import com.nttdata.utils.enums.enumStatus;
 
+/**
+ * Class that models the DTO object of Task
+ */
 public class TaskDTO {
 
 	private long id;

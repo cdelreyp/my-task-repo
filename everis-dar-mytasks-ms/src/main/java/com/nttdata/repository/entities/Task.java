@@ -12,6 +12,9 @@ import javax.validation.constraints.Size;
 
 import com.nttdata.utils.enums.enumStatus;
 
+/**
+ * Class that models the Task entity
+ */
 @Entity
 @Table(name="tasks")
 public class Task {
