@@ -27,6 +27,14 @@ public class Task {
 	@Column(name = "description")
 	@Size(max=256)
 	private String description;
+	
+	@Column(name = "user_creator")
+	@Size(max=16)
+	private String userCreator;
+	
+	@Column(name = "user_asigned")
+	@Size(max=16)
+	private String userAsigned;
 
 	@Column(name = "entry_date")
 	private Timestamp entry_date;
@@ -41,10 +49,11 @@ public class Task {
 		
 	}
 
-	public Task(Long id, String description, enumStatus status) {
+	public Task(Long id, String description, enumStatus status, String userCreator) {
 		this.id = id;
 		this.description = description;
 		this.status = status;
+		this.userCreator = userCreator;
 	}
 
 	public Long getId() {
@@ -69,6 +78,22 @@ public class Task {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getUserCreator() {
+		return userCreator;
+	}
+
+	public void setUserCreator(String userCreator) {
+		this.userCreator = userCreator;
+	}
+
+	public String getUserAsigned() {
+		return userAsigned;
+	}
+
+	public void setUserAsigned(String userAsigned) {
+		this.userAsigned = userAsigned;
 	}
 
 	public Timestamp getEntry_date() {

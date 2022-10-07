@@ -39,7 +39,7 @@ public class TaskControllerTests {
 	@Order(1)
 	public void test01_post() {
 		// Initialization: Task object to insert
-		Task task = new Task(1L, "description", enumStatus.IN_PROGRESS);
+		Task task = new Task(1L, "description", enumStatus.IN_PROGRESS, "creator");
 		// POST - WebTestClient
 		this
 		.webTestClient
@@ -66,7 +66,7 @@ public class TaskControllerTests {
 	@Order(2)
 	public void test02_put() {
 		// Initialization: Task object to update
-		Task task = new Task(1L, "updated description", enumStatus.COMPLETED);
+		Task task = new Task(1L, "updated description", enumStatus.COMPLETED, "creator");
 		// POST - WebTestClient
 		this
 		.webTestClient

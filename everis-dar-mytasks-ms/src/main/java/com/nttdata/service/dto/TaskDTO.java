@@ -11,6 +11,10 @@ public class TaskDTO {
 	private enumStatus status;
 
 	private String description;
+	
+	private String userCreator;
+	
+	private String userAsigned;
 
 	private Timestamp entry_date;
 
@@ -40,6 +44,22 @@ public class TaskDTO {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getUserCreator() {
+		return userCreator;
+	}
+
+	public void setUserCreator(String userCreator) {
+		this.userCreator = userCreator;
+	}
+
+	public String getUserAsigned() {
+		return userAsigned;
+	}
+
+	public void setUserAsigned(String userAsigned) {
+		this.userAsigned = userAsigned;
 	}
 
 	public Timestamp getEntry_date() {

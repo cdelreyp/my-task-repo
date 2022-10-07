@@ -65,6 +65,9 @@ public class TaskServiceImpl implements TaskService {
 		taskToAdd.setDescription(task.getDescription());
 		taskToAdd.setStatus(enumStatus.IN_PROGRESS);
 
+		taskToAdd.setUserCreator(task.getUserCreator());
+		taskToAdd.setUserAsigned(task.getUserAsigned());
+		
 		taskToAdd.setEntry_date(new Timestamp(System.currentTimeMillis()));
 		taskToAdd.setModified_date(taskToAdd.getEntry_date());
 
@@ -77,7 +80,7 @@ public class TaskServiceImpl implements TaskService {
 
 		Optional<Task> taskToUpdate = taskRepository.findById(id);
 
-		if (taskToUpdate.isPresent() && !taskToUpdate.get().getStatus().equals(enumStatus.DELETED)) {
+		if (taskToUpdate.isPresent() &&  !taskToUpdate.get().getStatus().equals(enumStatus.DELETED)) {
 
 			if (task.getDescription() != null) {
 				taskToUpdate.get().setDescription(task.getDescription());
@@ -87,6 +90,11 @@ public class TaskServiceImpl implements TaskService {
 				taskToUpdate.get().setStatus(task.getStatus());
 				taskToUpdate.get().setModified_date(new Timestamp(System.currentTimeMillis()));
 			}
+			if (task.getUserAsigned() != null) {
+				taskToUpdate.get().setUserAsigned(task.getUserAsigned());
+				taskToUpdate.get().setModified_date(new Timestamp(System.currentTimeMillis()));
+			}
+
 
 			taskRepository.save(taskToUpdate.get());
 
