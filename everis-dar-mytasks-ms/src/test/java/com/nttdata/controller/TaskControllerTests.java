@@ -142,7 +142,7 @@ public class TaskControllerTests {
 	public void test05_getByStatus() {
 		this.webTestClient
 		.get()
-		.uri(ABSOLUTE_URI + "sByStatus?status=COMPLETED")
+		.uri(ABSOLUTE_URI + "s?status=COMPLETED")
 		.exchange()
 		.expectStatus().isOk()
 		.expectBodyList(Task.class)
