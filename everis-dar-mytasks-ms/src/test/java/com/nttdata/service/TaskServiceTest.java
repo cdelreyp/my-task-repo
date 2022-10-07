@@ -7,16 +7,11 @@ import org.junit.jupiter.api.TestMethodOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-
-import java.sql.Timestamp;
 import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
-
-import com.nttdata.repository.TaskRepository;
 import com.nttdata.repository.entities.Task;
 import com.nttdata.service.TaskService;
 import com.nttdata.service.dto.TaskAddDTO;
@@ -28,16 +23,16 @@ import com.nttdata.utils.enums.enumStatus;
 @TestMethodOrder(OrderAnnotation.class)
 public class TaskServiceTest {
 	
-	private final static String DESC_TASK_1 = "Task 1";
-	private final static String DESC_TASK_4 = "Task 4";
+	private final static String DESC_TASK_1 = "TASK PRUEBA 1";
+	private final static String DESC_TASK_4 = "TASK PRUEBA 4";
+	private final static String UPDATED_USER_NAME = "NEW USER";
 	
-	@Autowired
-	private TaskRepository taskRepository;
 	
 	@Autowired
 	private TaskService taskService;
 	
 	
+	//** Get all tasks   **//
 	@Test
 	@Order(1)
 	void getAllTest() {
@@ -45,7 +40,7 @@ public class TaskServiceTest {
 		assertEquals(tasks.size(),3);
 	}
 	
-	
+	//** Get all tasks by status   **//
 	@Test
 	@Order(2)
 	void getAllByStatusTest() {
@@ -62,7 +57,7 @@ public class TaskServiceTest {
 		}
 	}
 	
-	
+	//** Get task by id   **//
 	@Test
 	@Order(3)
 	void getPresentTaskByIdTest() {
@@ -79,7 +74,7 @@ public class TaskServiceTest {
 		assertNull(task);
 	}
 	
-	
+	//** add new task   **//
 	@Test
 	@Order(5)
 	void addTaskTest() {
@@ -93,15 +88,19 @@ public class TaskServiceTest {
 		assertEquals(task2.getStatus(),enumStatus.IN_PROGRESS);
 	}
 	
+	
+	//** updated task   **//
+	
 	@Test
 	@Order(6)
 	void updateNonExistingTaskTest() {
 		assertNull(taskService.updateTask(null, -1L));
 	}
 	
+	
 	@Test
 	@Order(7)
-	void updateDescriptionTaskTest() {
+	void updateDescriptionNonDeletedTaskTest() {
 		TaskUpdateDTO task = new TaskUpdateDTO();
 		task.setDescription(DESC_TASK_1);
 		Task taskUpdated = taskService.updateTask(task, 1L);
@@ -117,9 +116,19 @@ public class TaskServiceTest {
 		assertEquals(enumStatus.COMPLETED,taskUpdated.getStatus());
 	}
 	
-	
 	@Test
-    @Order(7)
+	@Order(9)
+	void updateUserNonDeletedTaskTest() {
+		TaskUpdateDTO task = new TaskUpdateDTO();
+		task.setUserAsigned(UPDATED_USER_NAME);
+		Task taskUpdated = taskService.updateTask(task, 1L);
+		assertEquals(UPDATED_USER_NAME,taskUpdated.getUserAsigned());
+	}
+	
+	
+	//** delete  task   **//
+	@Test
+    @Order(10)
     void deleteTaskTest() {
         Task task = taskService.getTaskById(1L);
         assertNotNull(task);
@@ -129,6 +138,17 @@ public class TaskServiceTest {
         task = taskService.getTaskById(1L);
         assertNotNull(task);
         assertEquals(task.getStatus(),enumStatus.DELETED);
+	}
+	
+	//** update task   **//
+	
+	@Test
+	@Order(11)
+	void updateStatusDeletedTaskTest() {
+		TaskUpdateDTO task = new TaskUpdateDTO();
+		task.setStatus(enumStatus.COMPLETED);
+		Task taskUpdated = taskService.updateTask(task, 1L);
+		assertNull(taskUpdated);
 	}
 	
 }
