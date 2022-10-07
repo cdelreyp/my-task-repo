@@ -19,11 +19,11 @@ public class TaskDTO {
 	
 	private String userAsigned;
 
-	private Timestamp entry_date;
+	private Timestamp entryDate;
 
-	private Timestamp modified_date;
+	private Timestamp modifiedDate;
 
-	private Timestamp cancel_date;
+	private Timestamp cancelDate;
 
 	public long getId() {
 		return id;
@@ -65,28 +65,28 @@ public class TaskDTO {
 		this.userAsigned = userAsigned;
 	}
 
-	public Timestamp getEntry_date() {
-		return entry_date;
+	public Timestamp getEntryDate() {
+		return entryDate;
 	}
 
-	public void setEntry_date(Timestamp entry_date) {
-		this.entry_date = entry_date;
+	public void setEntryDate(Timestamp entry_date) {
+		this.entryDate = entry_date;
 	}
 
-	public Timestamp getModified_date() {
-		return modified_date;
+	public Timestamp getModifiedDate() {
+		return modifiedDate;
 	}
 
-	public void setModified_date(Timestamp modified_date) {
-		this.modified_date = modified_date;
+	public void setModifiedDate(Timestamp modifiedDate) {
+		this.modifiedDate = modifiedDate;
 	}
 
-	public Timestamp getCancel_date() {
-		return cancel_date;
+	public Timestamp getCancelDate() {
+		return cancelDate;
 	}
 
-	public void setCancel_date(Timestamp cancel_date) {
-		this.cancel_date = cancel_date;
+	public void setCancelDate(Timestamp cancelDate) {
+		this.cancelDate = cancelDate;
 	}
 
 }
